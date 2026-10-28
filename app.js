@@ -82,12 +82,19 @@ function applyLanguage(language, persist = true) {
     link.target = "_blank";
     link.rel = "noopener noreferrer";
   });
-  document.title = currentLanguage === "ru"
+  const shareTitle = currentLanguage === "ru"
     ? "Pulsar Launcher — каждый мир на своей орбите"
     : "Pulsar Launcher — every world, in its own orbit";
-  document.querySelector('meta[name="description"]').content = currentLanguage === "ru"
+  const shareDescription = currentLanguage === "ru"
     ? "Pulsar Launcher — современный дом для миров Minecraft. Инстансы, моды и сохранения в одном месте, меньше настройки — больше игры."
     : "Pulsar Launcher is a modern home for your Minecraft worlds. Keep instances, mods and saves together, and spend less time setting up.";
+  document.title = shareTitle;
+  document.querySelector('meta[name="description"]').content = shareDescription;
+  document.querySelector('meta[property="og:title"]').content = shareTitle;
+  document.querySelector('meta[property="og:description"]').content = shareDescription;
+  document.querySelector('meta[property="og:locale"]').content = currentLanguage === "ru" ? "ru_RU" : "en_US";
+  document.querySelector('meta[name="twitter:title"]').content = shareTitle;
+  document.querySelector('meta[name="twitter:description"]').content = shareDescription;
   if (persist) { try { localStorage.setItem(STORAGE_KEY, currentLanguage); } catch {} }
 }
 

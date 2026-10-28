@@ -12,6 +12,8 @@
     "dev": "node scripts/server.mjs",
     "start": "node scripts/server.mjs",
     "build": "node scripts/build.mjs",
-    "check": "node --check app.js && node --check scripts/server.mjs && node --check scripts/build.mjs"
+    "check": "node --check app.js && node --check scripts/server.mjs && node --check scripts/build.mjs && node --check discord/setup-server.mjs",
+    "discord:invite": "node discord/setup-server.mjs --print-invite",
+    "discord:setup": "node discord/setup-server.mjs"
   }
 }

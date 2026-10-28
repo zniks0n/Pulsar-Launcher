@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://pulsar-bq4wlerh.manus.space/sitemap.xml

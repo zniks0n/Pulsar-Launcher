@@ -1,42 +1,51 @@
 # Pulsar Launcher
 
-A modern home for Minecraft instances, mods and worlds. **Author: Znikson.**
+**Author: Znikson.** A modern home for Minecraft instances, mods and worlds.
 
-Современный дом для инстансов, модов и миров Minecraft. **Автор: Znikson.**
+**Автор: Znikson.** Современный дом для инстансов, модов и миров Minecraft.
 
-> This repository currently contains the public-facing website project. The desktop launcher, downloadable release binaries and Discord server are separate deliverables and are not represented as finished here.
+> This repository currently contains a bilingual public website and an optional Discord server setup helper. It does **not** contain a finished desktop launcher, installer or portable launcher release. No binaries or Discord invite are claimed until they actually exist.
 >
-> Сейчас в репозитории находится сайт проекта. Десктопный лаунчер, файлы релиза и Discord-сервер — отдельные задачи; этот сайт не выдаёт их за уже готовые.
+> Сейчас проект содержит двуязычный публичный сайт и вспомогательный скрипт настройки Discord-сервера. Готового десктопного лаунчера, установщика и портативного релиза здесь **пока нет**. Бинарники и приглашение в Discord не выдаются за уже опубликованные.
 
 ## Website / Сайт
 
-The bilingual landing page supports English and Russian, remembers the selected language in `localStorage`, presents roadmap features, and includes download, community, author and support sections. The initial installer, portable archive and Discord invitation are not published yet; the page reports this instead of inventing links, sizes or member counts.
+The responsive landing page supports English and Russian, detects browser language, remembers a manual selection in `localStorage`, and presents the product roadmap, release status, community, author and support sections. Download and Discord actions show honest “coming soon” states until real files and an invite are configured; the site does not invent file sizes, dates, invite URLs or member counts.
 
-Двуязычный лендинг поддерживает русский и английский, сохраняет выбор языка в `localStorage`, описывает планируемые возможности и содержит блоки скачивания, сообщества, автора и поддержки. Установщик, портативный архив и приглашение в Discord пока не опубликованы; сайт не подменяет их вымышленными ссылками, размерами или числом участников.
+Адаптивный лендинг поддерживает русский и английский, выбирает язык по локали браузера и сохраняет выбор пользователя в `localStorage`. На странице есть план продукта, статусы релизов, блоки сообщества, автора и поддержки. До настройки настоящих файлов и приглашения кнопки показывают честное состояние «скоро»; вымышленных размеров, дат, ссылок и числа участников нет.
 
-## Run / Запуск
+## Run and build / Запуск и сборка
 
-Requires Node.js 22 or later. There are no third-party runtime dependencies.
+Requires Node.js 22 or later. The website has no third-party runtime dependencies.
 
-Требуется Node.js 22 или новее. Внешних runtime-зависимостей нет.
+Требуется Node.js 22 или новее. Сайт не использует внешние runtime-зависимости.
 
 ```sh
 pnpm run dev
+pnpm run build
+pnpm run check
 ```
 
-Open `http://localhost:3000`. Build the static site into `dist/` with `pnpm run build`; run source checks with `pnpm run check`.
+The dev server runs at `http://localhost:3000`; the static build is placed in `dist/`.
 
-Откройте `http://localhost:3000`. Для сборки статического сайта в `dist/` выполните `pnpm run build`; проверки исходников запускаются через `pnpm run check`.
+Сервер разработки доступен на `http://localhost:3000`; статическая сборка создаётся в `dist/`.
+
+## Discord helper / Помощник Discord
+
+`discord/setup-server.mjs` creates missing categories, roles, channels, forum starter posts, read-only announcements/rules/downloads, three voice rooms and an invite in an existing server. It uses Node's built-in `fetch`; see [Discord setup instructions](discord/README.md) for safe one-time setup. The script cannot create the Discord server itself; the owner must create the server and invite the bot. AutoMod and Community onboarding remain Discord-side configuration.
+
+Файл `discord/setup-server.mjs` создаёт отсутствующие категории, роли, текстовые/форумные/голосовые каналы, стартовые посты, каналы объявлений/правил/загрузок только для чтения и постоянное приглашение в уже созданный сервер. Используется встроенный Node `fetch`; безопасный запуск описан в [инструкции Discord](discord/README.md). Сам Discord-сервер создаёт владелец. AutoMod и Community onboarding настраиваются отдельно в Discord.
 
 ## Project links / Ссылки проекта
 
-- GitHub: `[GITHUB_ZNIKSON]` (replace after the public repository is created / заменить после создания публичного репозитория)
-- Discord: `[DISCORD_ZNIKSON]` (replace after the community invite exists / заменить после создания приглашения сообщества)
-- Development support / Поддержать разработку: [DonationAlerts](https://www.donationalerts.com/r/zn1kson)
+- Website / Сайт: [pulsar-bq4wlerh.manus.space](https://pulsar-bq4wlerh.manus.space)
+- GitHub: `[GITHUB_ZNIKSON]` — replace only after a real public repository exists / заменить после появления публичного репозитория
+- Discord: `[DISCORD_ZNIKSON]` — replace only after the server invite is available / заменить после появления приглашения
+- Development support / Поддержка разработки: [DonationAlerts](https://www.donationalerts.com/r/zn1kson)
 
-The `DONATE_URL` constant is defined once at the top of `app.js`.
+The website defines the single requested `DONATE_URL` constant in `app.js`; the Discord helper defines the same destination once in `discord/setup-server.mjs`.
 
-Константа `DONATE_URL` объявлена один раз в начале `app.js`.
+На сайте единственная требуемая константа `DONATE_URL` объявлена в `app.js`; скрипт Discord использует тот же адрес, объявленный ровно один раз в `discord/setup-server.mjs`.
 
 ## Author / Автор
 
