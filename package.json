@@ -1,0 +1,17 @@
+{
+  "name": "pulsar-launcher-site",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Znikson",
+  "description": "Pulsar Launcher — a modern home for Minecraft worlds",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node scripts/server.mjs",
+    "start": "node scripts/server.mjs",
+    "build": "node scripts/build.mjs",
+    "check": "node --check app.js && node --check scripts/server.mjs && node --check scripts/build.mjs"
+  }
+}
