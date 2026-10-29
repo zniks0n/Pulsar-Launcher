@@ -1,7 +1,7 @@
 {
   "name": "pulsar-launcher",
   "productName": "Pulsar Launcher",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "main": "main.mjs",
@@ -13,7 +13,7 @@
   "engines": { "node": ">=22" },
   "scripts": {
     "dev": "electron .",
-    "check": "node --check main.mjs && node --check preload.cjs && node --check services/store.mjs && node --check services/accounts.mjs && node --check services/modrinth.mjs && node --check services/minecraft.mjs && node --check services/crash-diagnostics.mjs && node --check renderer/app.js",
+    "check": "node --check main.mjs && node --check preload.cjs && node --check services/store.mjs && node --check services/accounts.mjs && node --check services/modrinth.mjs && node --check services/java-runtime.mjs && node --check services/minecraft.mjs && node --check services/crash-diagnostics.mjs && node --check renderer/app.js",
     "test": "node --test services/*.test.mjs",
     "pack:dir": "electron-builder --dir",
     "build:win": "electron-builder --win --x64",

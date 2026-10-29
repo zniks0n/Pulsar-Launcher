@@ -1,7 +1,6 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import { spawnSync } from "node:child_process";
 import {
   createMinecraftProcessWatcher,
   launch,
@@ -22,6 +21,7 @@ import {
   resolveMinecraftJarInstallFile,
   resolveMinecraftVersionJsonInstallFile,
 } from "@xmcl/installer";
+import { detectJavaMajor, installMojangJavaRuntime } from "./java-runtime.mjs";
 
 const ALLOWED_LOADERS = new Set(["vanilla", "fabric"]);
 const MIN_MEMORY = 512;
@@ -41,16 +41,6 @@ function offlineUuid(name) {
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
 }
 
-function detectJavaMajor(javaPath) {
-  const result = spawnSync(javaPath, ["-version"], { encoding: "utf8", timeout: 8000, windowsHide: true });
-  if (result.error) throw new Error(`Java could not be started (${result.error.message}). Choose a Java executable in Settings.`);
-  const output = `${result.stdout || ""}\n${result.stderr || ""}`;
-  const match = output.match(/version\s+"?([0-9]+)(?:\.([0-9]+))?/i) || output.match(/openjdk\s+([0-9]+)(?:\.([0-9]+))?/i);
-  if (!match) throw new Error("The selected file did not report a recognizable Java version.");
-  const major = Number(match[1]) === 1 ? Number(match[2]) : Number(match[1]);
-  return Number.isFinite(major) ? major : 0;
-}
-
 function validVersionId(value) {
   return /^[A-Za-z0-9._+-]{1,100}$/.test(String(value || ""));
 }
@@ -59,6 +49,7 @@ export class MinecraftService {
   constructor({ store, rootDirectory, emit }) {
     this.store = store;
     this.instancesRoot = path.join(rootDirectory, "instances");
+    this.runtimeRoot = path.join(rootDirectory, "runtimes");
     this.emit = emit || (() => {});
     this.controllers = new Map();
     this.processes = new Map();
@@ -237,15 +228,59 @@ export class MinecraftService {
     }
   }
 
+  async resolveJavaPath(instanceId, instance, settings, expectedJava, requiredMajor) {
+    const configuredPath = String(settings.javaPath || "").trim();
+    const instancePath = String(instance.javaPath || "").trim();
+    const javaPath = configuredPath || instancePath || "java";
+    const explicitPath = Boolean(configuredPath) || Boolean(instancePath && !instance.managedJava);
+    let detectedMajor = 0;
+    let detectionError;
+    try { detectedMajor = detectJavaMajor(javaPath); }
+    catch (error) { detectionError = error; }
+    if (!detectionError && detectedMajor >= requiredMajor) return javaPath;
+    if (explicitPath) {
+      if (detectionError) throw detectionError;
+      throw new Error(`Minecraft ${instance.version} needs Java ${requiredMajor} or newer. The selected runtime is Java ${detectedMajor}.`);
+    }
+
+    if (this.controllers.has(instanceId)) throw new Error("Another installation is already running for this instance.");
+    const controller = new AbortController();
+    this.controllers.set(instanceId, controller);
+    this.sendProgress(instanceId, "java-runtime", 1, `Minecraft ${instance.version} · Java ${requiredMajor}`);
+    try {
+      const runtime = await installMojangJavaRuntime({
+        component: expectedJava.javaVersion?.component,
+        majorVersion: requiredMajor,
+        runtimeRoot: this.runtimeRoot,
+        signal: controller.signal,
+        onProgress: (progress, detail) => this.sendProgress(instanceId, "java-runtime", progress, detail),
+      });
+      if (controller.signal.aborted) throw controller.signal.reason || new Error("Java runtime installation cancelled.");
+      this.store.update((state) => {
+        const current = state.instances.find((candidate) => candidate.id === instanceId);
+        if (current) {
+          current.javaPath = runtime.javaPath;
+          current.managedJava = true;
+          current.managedJavaMajor = runtime.majorVersion;
+          current.managedJavaComponent = runtime.component;
+        }
+      });
+      return runtime.javaPath;
+    } finally {
+      if (this.controllers.get(instanceId) === controller) this.controllers.delete(instanceId);
+    }
+  }
+
   async launchInstance(instanceId, accounts, settings) {
     if (this.processes.has(instanceId)) throw new Error("Minecraft is already running for this instance.");
+    if (this.controllers.has(instanceId)) throw new Error("An installation is already running for this instance.");
     const instance = this.getInstance(instanceId);
     if (!instance.installed || !instance.installedVersionId) throw new Error("Install this instance before launching it.");
     const profile = await accounts.getLaunchProfile();
-    const javaPath = String(instance.javaPath || settings.javaPath || "java").trim();
     const expectedJava = await Version.parse(MinecraftFolder.from(this.getInstancePath(instanceId)), instance.installedVersionId);
-    const major = detectJavaMajor(javaPath);
     const required = Number(expectedJava.javaVersion?.majorVersion || 8);
+    const javaPath = await this.resolveJavaPath(instanceId, instance, settings, expectedJava, required);
+    const major = detectJavaMajor(javaPath);
     if (major < required) throw new Error(`Minecraft ${instance.version} needs Java ${required} or newer. The selected runtime is Java ${major}.`);
     const minimum = Number(instance.minMemory || settings.minMemory || 1024);
     const maximum = Number(instance.maxMemory || settings.maxMemory || 4096);

@@ -5,7 +5,7 @@ import { Transform } from "node:stream";
 import { pipeline } from "node:stream/promises";
 
 const API = "https://api.modrinth.com/v2";
-const USER_AGENT = "PulsarLauncher/0.1.0 (+https://pulsar-bq4wlerh.manus.space)";
+const USER_AGENT = "PulsarLauncher/0.2.0 (+https://pulsar-bq4wlerh.manus.space)";
 
 async function getJson(url, signal) {
   const response = await fetch(url, { headers: { "user-agent": USER_AGENT, accept: "application/json" }, signal, redirect: "error" });

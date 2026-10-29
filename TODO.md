@@ -29,10 +29,12 @@
 - [x] Поддержаны локальные offline-профили и сторонний HTTPS Yggdrasil; пароль не сохраняется, токен сохраняется только через OS-protected storage, если оно доступно; для запуска Yggdrasil предусмотрен `authlib-injector`.
 - [x] Settings включают Java executable, memory, authlib-injector, snapshots, язык/тему/акцент и локальные crash report предпочтения.
 - [x] При закрытии игры UI предлагает локальный crash report: оффлайн-диагностика, копирование/сохранение/просмотр лога и user-confirmed переходы к внешнему AI assistant; лог самовольно не загружается.
-- [x] Unit tests оффлайн crash diagnostics и защищённого async account storage: 8 прошли; Electron JavaScript syntax проверен.
+- [x] Если пользователь не задал свой Java executable и в системе нет подходящей версии, при нажатии «Играть» автоматически загрузить официальный Mojang Java runtime, соответствующий `javaVersion` выбранной версии Minecraft; показывать фактический прогресс и разрешать отмену, хранить путь отдельно для инстанса, не перезаписывать явно выбранный Java executable. Реальная установка Java 21.0.7 проверена на Linux; Windows x64 runtime manifest проверен; 16 тестов включают отмену и запрет pre-existing symlink/junction escape.
+- [x] Unit tests оффлайн crash diagnostics, защищённого async account storage и безопасной Java runtime установки: 16 прошли; Electron JavaScript syntax проверен.
 - [x] Финальная Electron `v0.1.0` пересборка собрала Windows x64 NSIS installer, portable `.exe` и portable `.zip`; проверены PE signatures, SHA-256 и zip integrity. Бинарники unsigned.
+- [x] Для `v0.2.0` собраны Windows x64 NSIS installer `Pulsar-Launcher-0.2.0-x64.exe`, portable `Pulsar-Launcher-0.2.0-portable.exe` и ZIP `Pulsar-Launcher-0.2.0-x64.zip`; packaged ASAR содержит Java runtime helper, главная Electron app — PE32+ x86-64, ZIP integrity и SHA-256 проверены. Бинарники unsigned.
 - [ ] Microsoft/Xbox authentication отсутствует: требуется проверенная регистрация публичного OAuth client/app flow. Не запрашивать Microsoft-пароль и не включать фиктивный вход.
-- [ ] Bedrock; Forge/NeoForge/Quilt/OptiFine/LabyMod; automatic Java runtime download; CurseForge/FTB; автоподписанный updater; полный импорт аккаунтов/настроек всех лаунчеров не включены.
+- [ ] Bedrock; Forge/NeoForge/Quilt/OptiFine/LabyMod; CurseForge/FTB; автоподписанный updater; полный импорт аккаунтов/настроек всех лаунчеров не включены.
 - [ ] Остальные идеи из исходного brief не выполнены: импорт из всех перечисленных launcher-ов; коллекции/избранное, зависимости модов/шейдеры/resource packs и AI pack builder; миры/chunk tools/3D blueprints, achievements/FTB quests, локальный сервер и каталог; друзья/личные сообщения/voice/cosmetics/leaderboards/skin studio; FPS/ресурсный менеджер/options sync/task manager/P2P/Big Picture/correlated telemetry; Discord Rich Presence; игровые updater и DPoP clock tolerance. Не представлять их на сайте как готовые функции.
 - [ ] Discord Rich Presence, Microsoft login и Bedrock не включены в ранний релиз; пользователь поручил мне настроить сам Discord guild.
 
@@ -42,18 +44,19 @@
 - [x] Опубликован GitHub Release `v0.1.0`: Windows x64 installer, portable `.exe`, portable `.zip`, `SHA256SUMS.txt` и ZIP исходников; checksum values пересверены с output GitHub release.
 - [x] Ссылки сайта указывают на соответствующие real GitHub release assets.
 - [x] Windows-файлы unsigned; это явно указано в release notes, README и installation docs; Authenticode certificate не предоставлен.
+- [ ] Опубликовать v0.2.0 GitHub Release с тремя проверенными Windows x64 binaries, `SHA256SUMS.txt`, чистым source ZIP и bilingual release notes; затем сверить все GitHub Release assets и синхронизировать `main` в Manus/GitHub.
 
 ## 5. Настроить существующий Discord guild
 - [x] Подготовлен optional idempotent `discord/setup-server.mjs`, двуязычная инструкция, безопасный `.env.example`; helper настраивает существующий guild, не создаёт сервер и не удаляет пользовательские данные.
 - [x] Helper поддерживает категории/каналы/форумы/роли, pinned seed messages, AutoMod baseline, verification/content filters, правила, ссылки сайта/repository/releases/DonationAlerts и заданный владельцем реальный invite URL.
 - [x] Проверен существующий invite `https://discord.gg/S4Xjmh9wQw`: он ведёт на guild `PL / Pulsar Launcher` с одним участником. Не создавать дубликат и не удалять существующие данные.
-- [ ] Авторизация Discord не завершена: browser tool открыл неавторизованную Sandbox-страницу, заполнение через ошибочные/не совпавшие индексы не удалось; форма показала неожиданные сохранённые login-значения, не относящиеся к переданным данным. Кнопка входа не нажималась; пароль не подтверждался и в репозитории не сохранялся. Не повторять вход через эту среду; потребуется реальный авторизованный Discord-сеанс или локальный setup helper с bot token владельца. Пользователю рекомендовано сменить пароль, отправленный в чат.
+- [ ] Авторизация Discord не завершена: Sandbox не предоставил подтверждённый авторизованный сеанс владельца. Не повторять вход через эту среду; потребуется авторизованный Discord-сеанс владельца или локальный `discord/setup-server.mjs` с bot token, хранимым только локально в `.env`.
 - [ ] Настроить согласованную структуру категорий/каналов/форумов, роли и права доступа, rules/welcome сообщения, основные safety/AutoMod параметры и использовать уже существующий invite; проверить результат в Discord.
 - [ ] Включить Discord Community/Onboarding, если нужные настройки доступны владельцу; если Discord требует ручного шага или отдельного подтверждения, сообщить пользователю только этот конкретный блокер.
 
 ## 6. Источники, архив, checkpoint и публикация
 - [x] Сохранены MIT LICENSE, CHANGELOG, `.gitignore`, research notes, BUILD/INSTALL docs и инструкции desktop.
 - [x] В репозитории и документации нет реального bot token, Microsoft/Yggdrasil пароля или пользовательских ключей.
-- [x] Пересобраны site и desktop после последних изменений; проверены 83 статических i18n key на EN/RU, локальный HTTP (страница/CSS/JS/SVG/route manifest), JavaScript syntax и 8 unit tests.
+- [x] Пересобраны site и desktop после последних изменений; проверены 83 статических i18n key на EN/RU, content-hashed CSS/JS и route manifest, JavaScript syntax и 16 launcher unit tests; Windows package также прошёл hash/archive checks.
 - [x] Manus canonical checkpoint `b0adb2ad9d010ff69820bf8ca03aea841b98604e` сохранён; `auto_publish` принят, `infra/overview` сообщает `deployStatus: success`, а публичный браузер подтвердил новые release-тексты и ссылки.
 - [x] Чистый source ZIP собран из коммита проекта без `.git`, `node_modules`, сборочных бинарников и `.env`; Source ZIP не является `.exe` или portable launcher.

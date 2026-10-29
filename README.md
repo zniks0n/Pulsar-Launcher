@@ -1,6 +1,6 @@
 # Pulsar Launcher
 
-**Автор / Author: Znikson** · ранний доступ / early access `v0.1.0`
+**Автор / Author: Znikson** · ранний доступ / early access `v0.2.0`
 
 Pulsar Launcher is an open-source Windows desktop launcher for Minecraft Java Edition, plus a bilingual public website. This is an early release: it installs and launches real Vanilla and Fabric instances, but it is not a finished replacement for every launcher.
 
@@ -8,17 +8,18 @@ Pulsar Launcher — открытый Windows-лаунчер Minecraft Java Editi
 
 ## Downloads / Загрузки
 
-- **Windows x64 installer (.exe):** [v0.1.0 release](https://github.com/zniks0n/Pulsar-Launcher/releases/download/v0.1.0/Pulsar-Launcher-0.1.0-x64.exe)
-- **Windows portable (.zip):** [v0.1.0 release](https://github.com/zniks0n/Pulsar-Launcher/releases/download/v0.1.0/Pulsar-Launcher-0.1.0-x64.zip)
-- The portable `.exe`, release notes and `SHA256SUMS.txt` are on the same [GitHub release](https://github.com/zniks0n/Pulsar-Launcher/releases/tag/v0.1.0).
+- **Windows x64 installer (.exe):** [v0.2.0 release](https://github.com/zniks0n/Pulsar-Launcher/releases/download/v0.2.0/Pulsar-Launcher-0.2.0-x64.exe)
+- **Windows portable (.zip):** [v0.2.0 release](https://github.com/zniks0n/Pulsar-Launcher/releases/download/v0.2.0/Pulsar-Launcher-0.2.0-x64.zip)
+- The portable `.exe`, release notes, `SHA256SUMS.txt` and clean source archive are on the same [GitHub release](https://github.com/zniks0n/Pulsar-Launcher/releases/tag/v0.2.0).
 
-The first Windows binaries are **unsigned**. Windows SmartScreen may show an unknown-publisher warning. Review the release notes and verify the supplied SHA-256 checksums before running the files.
+The Windows binaries are **unsigned**. Windows SmartScreen may show an unknown-publisher warning. Review the release notes and verify the supplied SHA-256 checksums before running the files.
 
-Первый Windows-релиз **не подписан**. SmartScreen может показать предупреждение о неизвестном издателе. Перед запуском прочитайте описание релиза и проверьте SHA-256.
+Windows-релиз **не подписан**. SmartScreen может показать предупреждение о неизвестном издателе. Перед запуском прочитайте описание релиза и проверьте SHA-256.
 
 ## What works / Что уже работает
 
 - Isolated Minecraft Java instances with real official version metadata, game libraries and assets; Vanilla and Fabric installation; cancellable progress.
+- If the selected instance has no explicitly configured Java and the system Java is missing or too old, Play can download the matching official Mojang runtime, verify runtime files, show progress, and be cancelled. The runtime path is stored per instance; a Java executable explicitly chosen by the user is never silently replaced.
 - Import of compatible local Minecraft/Prism-style folders, with common account/credential files excluded from the import.
 - Modrinth search and compatible Fabric/Vanilla mod download, hash verification and local enable/disable.
 - Offline profiles and third-party Yggdrasil login flows; passwords are not persisted. Online tokens are saved only when the operating system's protected storage is available.
@@ -27,9 +28,9 @@ The first Windows binaries are **unsigned**. Windows SmartScreen may show an unk
 
 ## Not included yet / Пока не реализовано
 
-Microsoft account/Xbox authentication, Bedrock, Forge/NeoForge/Quilt installation, full migrations from every launcher, Discord Rich Presence, built-in auto-updater and quest/progress integrations are not in this v0.1.0 release. These are not presented as working product features. The web page marks roadmap items accordingly.
+Microsoft account/Xbox authentication, Bedrock, Forge/NeoForge/Quilt installation, full migrations from every launcher, Discord Rich Presence, built-in auto-updater and quest/progress integrations are not in this v0.2.0 release. These are not presented as working product features. The web page marks roadmap items accordingly.
 
-В v0.1.0 пока нет входа Microsoft/Xbox, Bedrock, установки Forge/NeoForge/Quilt, импорта из всех лаунчеров, Discord Rich Presence, встроенного автообновления и интеграций достижений/квестов. Эти возможности не выдаются за готовые.
+В v0.2.0 пока нет входа Microsoft/Xbox, Bedrock, установки Forge/NeoForge/Quilt, импорта из всех лаунчеров, Discord Rich Presence, встроенного автообновления и интеграций достижений/квестов. Эти возможности не выдаются за готовые.
 
 ## Project links / Ссылки проекта
 
