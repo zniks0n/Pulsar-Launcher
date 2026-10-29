@@ -20,7 +20,7 @@ The server binds to `0.0.0.0:3000` by default and respects the `PORT` environmen
 pnpm run build
 ```
 
-The static output is written to `dist/`, including `index.html`, JavaScript, CSS, the SVG mark, route manifest, `robots.txt`, and `sitemap.xml`. The build only copies project-owned source files and installs no packages.
+The static output is written to `dist/`, including `index.html`, content-hashed JavaScript and CSS, the SVG mark, route manifest, `robots.txt`, and `sitemap.xml`. Hashes are derived from each asset's bytes and substituted into the built HTML. This gives changed assets new public URLs so the platform's long-lived static asset cache cannot keep serving an older JavaScript/CSS file after a deploy. The build only uses project-owned source files and installs no packages.
 
 ## Checks
 

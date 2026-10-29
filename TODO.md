@@ -8,8 +8,8 @@
 - [x] Точная ссылка поддержки `https://www.donationalerts.com/r/zn1kson` задана одной константой `DONATE_URL`.
 - [x] Добавлена приятная, ненавязчивая motion-система: поэтапное появление секций/cards, мягкие hover/focus/press transitions, nav/menu и dialog transitions; `prefers-reduced-motion` отключает scroll reveal и непрерывные эффекты, всё содержимое остаётся доступным.
 - [x] Добавлены canonical/Open Graph/Twitter metadata, XML sitemap, `robots.txt` и корневой `/manus-routes.json`.
-- [x] Обновление сайта с реальными ссылками, релизной информацией и motion сохранено в Manus checkpoint; canonical public site URL — `https://pulsar-bq4wlerh.manus.space/`.
-- [ ] Автопубликация checkpoint была отправлена, но последняя проверка браузером ещё показала прежний текст без релиза. Не заявлять, что обновлённая версия уже live, пока она не откроется на публичном адресе.
+- [x] Исходники сайта содержат реальные ссылки релиза, bilingual copy и motion; canonical public site URL — `https://pulsar-bq4wlerh.manus.space/`.
+- [ ] Предыдущий deployment status был `success` для checkpoint `b169c30`, но public browser отдавал устаревший EN-текст. JS/CSS имели неизменяемые имена (`app.js`, `styles.css`) при долгом static cache. Build pipeline теперь создаёт content-hashed имена и обновляет ссылки в собранном HTML; после следующего checkpoint требуется подтвердить реальный public output.
 
 ## 2. Download release и сайт-сообщество
 - [x] Подготовлены ссылки на Windows x64 installer `.exe` и portable `.zip`; для каждого UI показывает размер, дату и GitHub Release URL, после создания релиза они ведут на соответствующие бинарники.
@@ -55,6 +55,6 @@
 - [x] Сохранены MIT LICENSE, CHANGELOG, `.gitignore`, research notes, BUILD/INSTALL docs и инструкции desktop.
 - [x] В репозитории и документации нет реального bot token, Microsoft/Yggdrasil пароля или пользовательских ключей.
 - [x] Пересобраны site и desktop после последних изменений; проверены 83 статических i18n key на EN/RU, локальный HTTP (страница/CSS/JS/SVG/route manifest), JavaScript syntax и 8 unit tests.
-- [x] Сохранён Manus canonical checkpoint `6713d35969ec1eb07a1be5d49e31298b03dac77f`; automatic publication submitted с включённым `auto_publish`.
-- [ ] Подтвердить, что новый checkpoint завершил production deployment: последнее публичное browser view показало прежнее содержимое, поэтому обновлённый URL пока не выдавать как опубликованный.
+- [x] Manus canonical checkpoint `6713d35969ec1eb07a1be5d49e31298b03dac77f` был сохранён, а автоматическая публикация принята. Следующая исправляющая версия ещё требует своего checkpoint.
+- [ ] После content-hash исправления подтвердить public version в браузере; не выдавать обновлённый сайт за окончательно готовый до этой проверки.
 - [x] Чистый source ZIP собран из коммита проекта без `.git`, `node_modules`, сборочных бинарников и `.env`; Source ZIP не является `.exe` или portable launcher.
