@@ -8,7 +8,8 @@
 - [x] Точная ссылка поддержки `https://www.donationalerts.com/r/zn1kson` задана одной константой `DONATE_URL`.
 - [x] Добавлена приятная, ненавязчивая motion-система: поэтапное появление секций/cards, мягкие hover/focus/press transitions, nav/menu и dialog transitions; `prefers-reduced-motion` отключает scroll reveal и непрерывные эффекты, всё содержимое остаётся доступным.
 - [x] Добавлены canonical/Open Graph/Twitter metadata, XML sitemap, `robots.txt` и корневой `/manus-routes.json`.
-- [x] Обновление сайта с реальными ссылками и релизной информацией ещё надо сохранить как новый Manus checkpoint и повторно опубликовать; опубликованная прежняя версия доступна по адресу `https://pulsar-bq4wlerh.manus.space/`.
+- [x] Обновление сайта с реальными ссылками, релизной информацией и motion сохранено в Manus checkpoint; canonical public site URL — `https://pulsar-bq4wlerh.manus.space/`.
+- [ ] Автопубликация checkpoint была отправлена, но последняя проверка браузером ещё показала прежний текст без релиза. Не заявлять, что обновлённая версия уже live, пока она не откроется на публичном адресе.
 
 ## 2. Download release и сайт-сообщество
 - [x] Подготовлены ссылки на Windows x64 installer `.exe` и portable `.zip`; для каждого UI показывает размер, дату и GitHub Release URL, после создания релиза они ведут на соответствующие бинарники.
@@ -46,7 +47,7 @@
 - [x] Подготовлен optional idempotent `discord/setup-server.mjs`, двуязычная инструкция, безопасный `.env.example`; helper настраивает существующий guild, не создаёт сервер и не удаляет пользовательские данные.
 - [x] Helper поддерживает категории/каналы/форумы/роли, pinned seed messages, AutoMod baseline, verification/content filters, правила, ссылки сайта/repository/releases/DonationAlerts и заданный владельцем реальный invite URL.
 - [x] Проверен существующий invite `https://discord.gg/S4Xjmh9wQw`: он ведёт на guild `PL / Pulsar Launcher` с одним участником. Не создавать дубликат и не удалять существующие данные.
-- [ ] Авторизация не завершена: browser tool остался в неавторизованной Sandbox с неожиданным prefilled login, а предоставленная в сообщении форма не приняла. Не нажимать login и не повторять использование пароля; потребуется реальный авторизованный Discord-сеанс или локально запущенный setup helper с принадлежащим владельцу bot token. Рекомендовано сменить пароль, отправленный в чат.
+- [ ] Авторизация Discord не завершена: browser tool открыл неавторизованную Sandbox-страницу, заполнение через ошибочные/не совпавшие индексы не удалось; форма показала неожиданные сохранённые login-значения, не относящиеся к переданным данным. Кнопка входа не нажималась; пароль не подтверждался и в репозитории не сохранялся. Не повторять вход через эту среду; потребуется реальный авторизованный Discord-сеанс или локальный setup helper с bot token владельца. Пользователю рекомендовано сменить пароль, отправленный в чат.
 - [ ] Настроить согласованную структуру категорий/каналов/форумов, роли и права доступа, rules/welcome сообщения, основные safety/AutoMod параметры и использовать уже существующий invite; проверить результат в Discord.
 - [ ] Включить Discord Community/Onboarding, если нужные настройки доступны владельцу; если Discord требует ручного шага или отдельного подтверждения, сообщить пользователю только этот конкретный блокер.
 
@@ -54,5 +55,6 @@
 - [x] Сохранены MIT LICENSE, CHANGELOG, `.gitignore`, research notes, BUILD/INSTALL docs и инструкции desktop.
 - [x] В репозитории и документации нет реального bot token, Microsoft/Yggdrasil пароля или пользовательских ключей.
 - [x] Пересобраны site и desktop после последних изменений; проверены 83 статических i18n key на EN/RU, локальный HTTP (страница/CSS/JS/SVG/route manifest), JavaScript syntax и 8 unit tests.
-- [ ] Сохранить итоговую TODO/status редакцию в Manus canonical `origin/main` как новую checkpoint-версию и подтвердить automatic deployment сайта.
+- [x] Сохранён Manus canonical checkpoint `6713d35969ec1eb07a1be5d49e31298b03dac77f`; automatic publication submitted с включённым `auto_publish`.
+- [ ] Подтвердить, что новый checkpoint завершил production deployment: последнее публичное browser view показало прежнее содержимое, поэтому обновлённый URL пока не выдавать как опубликованный.
 - [x] Чистый source ZIP собран из коммита проекта без `.git`, `node_modules`, сборочных бинарников и `.env`; Source ZIP не является `.exe` или portable launcher.
