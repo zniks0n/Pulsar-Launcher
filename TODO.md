@@ -9,7 +9,8 @@
 - [x] Добавлена приятная, ненавязчивая motion-система: поэтапное появление секций/cards, мягкие hover/focus/press transitions, nav/menu и dialog transitions; `prefers-reduced-motion` отключает scroll reveal и непрерывные эффекты, всё содержимое остаётся доступным.
 - [x] Добавлены canonical/Open Graph/Twitter metadata, XML sitemap, `robots.txt` и корневой `/manus-routes.json`.
 - [x] Исходники сайта содержат реальные ссылки релиза, bilingual copy и motion; canonical public site URL — `https://pulsar-bq4wlerh.manus.space/`.
-- [x] Устранена причина старого текста: JS/CSS переведены на content-hashed имена вместо кешируемых `app.js`/`styles.css`. Deployment revision `b0adb2a` reported `success`; cache-busted public browser view теперь показывает доступный v0.1.0, корректную privacy notice и текущий invite.
+- [x] На промежуточном revision `b0adb2a` устранена причина старого текста: JS/CSS переведены на content-hashed имена вместо кешируемых `app.js`/`styles.css`; cache-busted public view тогда подтверждал v0.1.0, privacy notice и invite.
+- [x] После публикации v0.2.0 новый source commit синхронизирован с Manus/GitHub `main`, site auto-publish завершился успешно на revision `20237f6befe2a02c5d3cc08bbbf4310310ec65ea`, а публичный root URL без cache-busting вернул 200, v0.2.0 и content-hashed JS/CSS. Три GitHub download URLs возвращают HTTP 200 с размерами, совпадающими с релизными файлами.
 
 ## 2. Download release и сайт-сообщество
 - [x] Подготовлены ссылки на Windows x64 installer `.exe` и portable `.zip`; для каждого UI показывает размер, дату и GitHub Release URL, после создания релиза они ведут на соответствующие бинарники.
@@ -44,7 +45,8 @@
 - [x] Опубликован GitHub Release `v0.1.0`: Windows x64 installer, portable `.exe`, portable `.zip`, `SHA256SUMS.txt` и ZIP исходников; checksum values пересверены с output GitHub release.
 - [x] Ссылки сайта указывают на соответствующие real GitHub release assets.
 - [x] Windows-файлы unsigned; это явно указано в release notes, README и installation docs; Authenticode certificate не предоставлен.
-- [ ] Опубликовать v0.2.0 GitHub Release с тремя проверенными Windows x64 binaries, `SHA256SUMS.txt`, чистым source ZIP и bilingual release notes; затем сверить все GitHub Release assets и синхронизировать `main` в Manus/GitHub.
+- [x] Опубликован публичный GitHub Release `v0.2.0` с тремя проверенными Windows x64 binaries, `SHA256SUMS.txt`, чистым source ZIP и bilingual release notes; API подтверждает все 5 upload assets и точные имена/размеры.
+- [x] Синхронизировать release commit `20237f6befe2a02c5d3cc08bbbf4310310ec65ea` с Manus canonical `main` и GitHub `main`; Manus записал checkpoint и auto-published сайт.
 
 ## 5. Настроить существующий Discord guild
 - [x] Подготовлен optional idempotent `discord/setup-server.mjs`, двуязычная инструкция, безопасный `.env.example`; helper настраивает существующий guild, не создаёт сервер и не удаляет пользовательские данные.
@@ -58,5 +60,5 @@
 - [x] Сохранены MIT LICENSE, CHANGELOG, `.gitignore`, research notes, BUILD/INSTALL docs и инструкции desktop.
 - [x] В репозитории и документации нет реального bot token, Microsoft/Yggdrasil пароля или пользовательских ключей.
 - [x] Пересобраны site и desktop после последних изменений; проверены 83 статических i18n key на EN/RU, content-hashed CSS/JS и route manifest, JavaScript syntax и 16 launcher unit tests; Windows package также прошёл hash/archive checks.
-- [x] Manus canonical checkpoint `b0adb2ad9d010ff69820bf8ca03aea841b98604e` сохранён; `auto_publish` принят, `infra/overview` сообщает `deployStatus: success`, а публичный браузер подтвердил новые release-тексты и ссылки.
-- [x] Чистый source ZIP собран из коммита проекта без `.git`, `node_modules`, сборочных бинарников и `.env`; Source ZIP не является `.exe` или portable launcher.
+- [x] Manus canonical checkpoint `20237f6befe2a02c5d3cc08bbbf4310310ec65ea` сохранён; `infra/overview` сообщает `deployStatus: success`, public uncached root, JS/CSS и GitHub asset HEAD checks прошли.
+- [x] Чистый `Pulsar-Launcher-v0.2.0-source.zip` собран из tag commit без `.git`, `node_modules`, build outputs, binaries и `.env`; archive integrity, remote `SHA256SUMS.txt` и source asset upload проверены. ZIP исходников не является `.exe` или portable launcher.
