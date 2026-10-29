@@ -49,3 +49,45 @@
   @keyframes dialog-arrive{from{opacity:0;transform:translateY(8px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
   @keyframes backdrop-arrive{from{opacity:0}to{opacity:1}}
 }
+
+
+/* Honest v0.2.0 capability panel and user-ready release links. */
+.current-build{position:relative;display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:28px;margin:0 0 18px;padding:24px;overflow:hidden;border:1px solid rgba(169,232,208,.17);border-radius:10px;background:linear-gradient(130deg,rgba(169,232,208,.055),rgba(169,150,255,.045) 54%,rgba(255,255,255,.012))}
+.current-build::before{content:"";position:absolute;top:-190px;left:10%;width:340px;height:290px;pointer-events:none;background:radial-gradient(ellipse,rgba(169,232,208,.1),transparent 68%)}
+.current-build-head,.current-build-grid,.current-build-foot{position:relative;z-index:1}
+.current-build-head{display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+.current-build-status{display:inline-flex;align-items:center;gap:8px;margin-bottom:13px;color:var(--mint);font:500 8px var(--mono);letter-spacing:.1em}
+.current-build-status i{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 12px rgba(169,232,208,.55)}
+.current-build-head h3{max-width:390px;margin:0 0 10px;font-size:clamp(24px,3vw,34px);font-weight:600;line-height:1.15;letter-spacing:-.055em}
+.current-build-head p{max-width:390px;margin:0;color:#9999ae;font-size:11px;line-height:1.8}
+.current-build-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px;align-content:center}
+.current-capability{display:flex;gap:11px;padding:13px 4px;border-bottom:1px solid var(--line)}
+.current-capability:last-child{grid-column:1/-1;border-bottom:0}
+.capability-index{flex:0 0 20px;padding-top:2px;color:var(--mint);font:9px var(--mono)}
+.current-capability h4{margin:0 0 5px;font-size:11px;font-weight:700;letter-spacing:.01em}
+.current-capability p{margin:0;color:#9292a8;font-size:9px;line-height:1.75}
+.current-build-foot{grid-column:1/-1;display:flex;align-items:flex-start;gap:12px;padding-top:14px;border-top:1px solid rgba(218,218,245,.1)}
+.current-build-foot strong{flex:0 0 auto;padding:4px 7px;border:1px solid rgba(243,197,133,.2);border-radius:4px;color:#d5bb8e;font:500 7px var(--mono);letter-spacing:.08em}
+.current-build-foot p{margin:1px 0 0;color:#9292a8;font-size:9px;line-height:1.7}
+.feature-status-live{border-color:rgba(169,232,208,.25);color:var(--mint)}
+.feature-status-partial{border-color:rgba(185,166,255,.25);color:#c4b7ff}
+.download-footnote{align-items:flex-start;flex-wrap:wrap}
+.download-info-icon{display:grid;place-items:center;flex:0 0 15px;width:15px;height:15px;margin-top:1px;border:1px solid var(--line-strong);border-radius:50%;font-size:9px}
+.download-warning{flex:1;min-width:240px}
+.download-resource-links{display:flex;flex-wrap:wrap;gap:8px 16px;margin-left:24px}
+.download-resource-links a{border-bottom:1px solid rgba(169,150,255,.26);color:#bbb0ef;font-size:9px;transition:color .2s,border-color .2s}
+.download-resource-links a:hover{border-color:var(--violet);color:#e6ddff}
+.download-resource-links a:focus-visible{outline:2px solid var(--violet);outline-offset:4px}
+@media(max-width:760px){.current-build{grid-template-columns:1fr;gap:14px;padding:20px}.current-build-head h3,.current-build-head p{max-width:600px}.current-build-grid{grid-template-columns:1fr}.current-capability:last-child{grid-column:auto}.current-build-foot{grid-column:auto;flex-direction:column;gap:7px}.download-resource-links{margin-left:24px}}
+@media(max-width:420px){.current-build{padding:16px}.download-resource-links{margin-left:0;gap:8px 12px}.download-resource-links a{font-size:8px}}
+
+/* Maintain readable body copy and utility labels across desktop and compact screens. */
+.feature-status{font-size:8px}
+.current-build-status{font-size:9px}
+.current-build-head p{font-size:12px}
+.current-capability h4{font-size:12px}
+.current-capability p{font-size:10px}
+.current-build-foot strong{font-size:8px}
+.current-build-foot p{font-size:10px}
+.download-warning,.download-resource-links a{font-size:10px}
+@media(max-width:420px){.download-resource-links a{font-size:9px}}
