@@ -1,0 +1,18 @@
+diff --git a/utils.d.ts b/utils.d.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..95e0be277e00e5f2d028d9428afe640fda5dfead
+--- /dev/null
++++ b/utils.d.ts
+@@ -0,0 +1 @@
++export declare function isNotNull<T>(value: T | undefined): value is T;
+diff --git a/utils.js b/utils.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..1eb1a37080773f66df0ab68fbdd9db7881c8f967
+--- /dev/null
++++ b/utils.js
+@@ -0,0 +1,5 @@
++// Published @xmcl/core 2.16.2 omits this runtime subpath although
++// @xmcl/installer 6.3.6 imports it. Keep the documented predicate semantics.
++exports.isNotNull = function isNotNull(value) {
++  return value !== undefined;
++};

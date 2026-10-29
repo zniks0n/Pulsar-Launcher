@@ -1,0 +1,56 @@
+{
+  "name": "pulsar-launcher",
+  "productName": "Pulsar Launcher",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "main.mjs",
+  "author": "Znikson",
+  "description": "Pulsar Launcher — a modern home for Minecraft worlds",
+  "homepage": "https://pulsar-bq4wlerh.manus.space/",
+  "repository": { "type": "git", "url": "https://github.com/zniks0n/Pulsar-Launcher.git" },
+  "packageManager": "pnpm@11.25.0",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "electron .",
+    "check": "node --check main.mjs && node --check preload.cjs && node --check services/store.mjs && node --check services/accounts.mjs && node --check services/modrinth.mjs && node --check services/minecraft.mjs && node --check services/crash-diagnostics.mjs && node --check renderer/app.js",
+    "test": "node --test services/*.test.mjs",
+    "pack:dir": "electron-builder --dir",
+    "build:win": "electron-builder --win --x64",
+    "build:win:nsis": "electron-builder --win nsis --x64",
+    "build:win:portable": "electron-builder --win portable --x64",
+    "build:win:zip": "electron-builder --win zip --x64"
+  },
+  "dependencies": {
+    "@xmcl/core": "2.16.2",
+    "@xmcl/installer": "6.3.6"
+  },
+  "devDependencies": {
+    "electron": "45.1.0",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "dev.znikson.pulsarlauncher",
+    "productName": "Pulsar Launcher",
+    "asar": true,
+    "directories": { "output": "dist", "buildResources": "assets" },
+    "files": ["main.mjs", "preload.cjs", "services/**/*", "!services/**/*.test.mjs", "renderer/**/*", "assets/**/*", "package.json"],
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] },
+        { "target": "zip", "arch": ["x64"] }
+      ],
+      "icon": "assets/pulsar.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "portable": { "artifactName": "Pulsar-Launcher-${version}-portable.${ext}" },
+    "artifactName": "Pulsar-Launcher-${version}-${arch}.${ext}"
+  }
+}

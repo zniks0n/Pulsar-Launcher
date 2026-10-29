@@ -1,0 +1,10 @@
+packages:
+  - .
+allowBuilds:
+  electron: true
+  electron-winstaller: false
+minimumReleaseAgeExclude:
+  - electron@45.1.0
+patchedDependencies:
+  '@xmcl/core@2.16.2': patches/@xmcl__core@2.16.2.patch
+  '@xmcl/unzip@2.2.0': patches/@xmcl__unzip@2.2.0.patch

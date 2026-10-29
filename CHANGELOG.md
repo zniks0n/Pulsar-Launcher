@@ -1,8 +1,9 @@
 # Changelog
 
-## 0.1.0 — 2026-10-29
+## 0.1.0 — 2026-10-29 — Early Access
 
-- Created the bilingual Pulsar Launcher landing page (EN/RU) with browser-locale detection and saved language choice.
-- Added original CSS interface concept art, responsive layouts, roadmap feature cards, download status, community, author and DonationAlerts sections.
-- Added a dependency-free Node development server and static build script.
-- The desktop launcher, GitHub binaries and Discord community are not published in this release.
+- Released the Pulsar Launcher Windows x64 desktop app with real Vanilla and Fabric Minecraft Java installation/launch, isolated instances, compatible Modrinth mod management, offline/Yggdrasil accounts and local crash diagnostics.
+- Prepared an NSIS installer, portable executable and portable ZIP. All Windows builds are unsigned; release checksums are provided separately.
+- Added a bilingual EN/RU website with real GitHub, download, author, DonationAlerts and user-provided Discord links; includes subtle transitions and motion-reduction support.
+- Added the optional helper for setting up channels and moderation in an existing Discord guild; creating and administering the guild remains with its owner.
+- Microsoft/Xbox sign-in, Bedrock, Forge/NeoForge/Quilt, Discord Rich Presence, built-in auto-update, full migrations from other launchers and quest/social features are not included in this early-access release.

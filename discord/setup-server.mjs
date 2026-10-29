@@ -7,8 +7,9 @@
 const API = "https://discord.com/api/v10";
 const DONATE_URL = "https://www.donationalerts.com/r/zn1kson";
 const SITE_URL = process.env.PULSAR_SITE_URL || "https://pulsar-bq4wlerh.manus.space";
-const GITHUB_URL = (process.env.PULSAR_GITHUB_URL || "").replace(/\/$/, "");
-const RELEASES_URL = process.env.PULSAR_RELEASES_URL || (GITHUB_URL ? `${GITHUB_URL}/releases` : "");
+const GITHUB_URL = (process.env.PULSAR_GITHUB_URL || "https://github.com/zniks0n/Pulsar-Launcher").replace(/\/$/, "");
+const RELEASES_URL = process.env.PULSAR_RELEASES_URL || `${GITHUB_URL}/releases`;
+const COMMUNITY_INVITE_URL = process.env.PULSAR_DISCORD_INVITE_URL || "https://discord.gg/S4Xjmh9wQw";
 const token = process.env.DISCORD_BOT_TOKEN?.trim();
 const guildId = process.env.DISCORD_GUILD_ID?.trim();
 const ownerId = process.env.DISCORD_OWNER_ID?.trim();
@@ -372,15 +373,27 @@ async function main() {
   await ensureGuildMetadata(guild, ids);
   await ensureAutoMod(roles, ids.modLog);
 
-  let invite;
-  try {
-    const oldInvites = await api("GET", `/channels/${ids.general}/invites`);
-    invite = oldInvites.find((item) => item.inviter?.id === bot.id && item.max_age === 0 && item.max_uses === 0);
-  } catch {
-    // Creating a fresh invite below provides a clearer permission error if invite lookup is unavailable.
+  let inviteUrl = COMMUNITY_INVITE_URL.trim();
+  if (inviteUrl) {
+    const parsed = new URL(inviteUrl);
+    const validHost = ["discord.gg", "www.discord.gg"].includes(parsed.hostname) ||
+      (["discord.com", "www.discord.com"].includes(parsed.hostname) && /^\/invite\/[\w-]+\/?$/.test(parsed.pathname));
+    if (parsed.protocol !== "https:" || parsed.username || parsed.password || !validHost) {
+      throw new Error("PULSAR_DISCORD_INVITE_URL must be an HTTPS Discord invite link.");
+    }
+    inviteUrl = parsed.toString();
+  } else {
+    let invite;
+    try {
+      const oldInvites = await api("GET", `/channels/${ids.general}/invites`);
+      invite = oldInvites.find((item) => item.inviter?.id === bot.id && item.max_age === 0 && item.max_uses === 0);
+    } catch {
+      // Creating a fresh invite below provides a clearer permission error if invite lookup is unavailable.
+    }
+    if (!invite) invite = await api("POST", `/channels/${ids.general}/invites`, { max_age: 0, max_uses: 0, unique: true });
+    inviteUrl = `https://discord.gg/${invite.code}`;
   }
-  if (!invite) invite = await api("POST", `/channels/${ids.general}/invites`, { max_age: 0, max_uses: 0, unique: true });
-  console.log(`\nПриглашение для участников: https://discord.gg/${invite.code}`);
+  console.log(`\nПриглашение для участников: ${inviteUrl}`);
   console.log(`Сайт: ${SITE_URL}`);
   if (GITHUB_URL) console.log(`GitHub: ${GITHUB_URL}`);
   else console.log("GitHub: публичный репозиторий ещё не создан.");

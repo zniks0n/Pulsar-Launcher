@@ -1,71 +1,57 @@
-# Pulsar Launcher — состояние сайта, Discord helper и оставшихся deliverables
+# Pulsar Launcher — состояние deliverables
 
-## 1. EN/RU и язык интерфейса
-- [x] Поддерживаются английский и русский; при первом визите английский/русский выбираются по системной локали, все прочие локали переключаются на английский.
-- [x] Пользователь может переключать EN/RU; выбор сохраняется в `localStorage` и используется при следующем визите.
-
-## 2. Публичный лендинг и навигация
-- [x] Лендинг оформлен по визуальному ориентиру XMCL: оригинальная айдентика Pulsar, тёмное космическое оформление/частицы и макет интерфейса; не копировать XMCL, его логотип, бренд или тексты.
-- [x] Hero содержит знак и описание Pulsar Launcher, «Download installer .EXE», «Portable version .ZIP» и Discord CTA; навигация по функциям, загрузкам и сообществу адаптируется для мобильных экранов.
-- [x] Все кнопки загрузок ведут к реальной секции Downloads; пока релизов нет, сайт честно сообщает, что первая версия готовится.
-- [x] Оригинальная графика сайта — макет, не скриншот несуществующего приложения; исключены неподтверждённые продуктовые заявления.
-
-## 3. Карточки функций и Download UI
-- [x] Сайт показывает roadmap-карточки «Краш-репорт с ИИ», Discord Rich Presence, импорт из других лаунчеров, автообновление и визуализатор прогресса; все помечены как разрабатываемые/планируемые.
-- [x] Downloads показывает два варианта: Windows `.exe` и портативный `.zip`; для каждого отведены размер, дата и настоящая GitHub Releases ссылка, но отсутствующие файлы/сведения помечены «ещё не опубликовано» вместо вымышленных значений.
-- [ ] Создать desktop launcher, собрать эти два файла, протестировать, вычислить реальные SHA-256/размеры/даты, опубликовать GitHub Release и заменить placeholders настоящими ссылками.
-
-## 4. DonationAlerts и автор сайта
-- [x] Отдельный блок «Поддержать разработку» и кнопка в подвале используют ровно `https://www.donationalerts.com/r/zn1kson`.
-- [x] В `app.js` одна константа `DONATE_URL = "https://www.donationalerts.com/r/zn1kson"`; имя автора продукта — Znikson.
-- [x] Авторский блок содержит Znikson и placeholders `[GITHUB_ZNIKSON]` / `[DISCORD_ZNIKSON]`, пока фактических публичных адресов нет.
-- [x] Footer содержит Discord, GitHub, правила, privacy, DonationAlerts, `© 2026 Znikson` и переключатель EN/RU.
-
-## 5. Website Discord section
-- [x] Секция описывает сообщество, содержит CTA приглашения и счётчик/статус сообщества.
-- [x] Приглашение и число участников честно отмечены как недоступные до появления настоящего сервера и инвайта; ничего не выдумано.
-- [ ] Внести действительную Discord invite URL и реальное число участников после настройки сервера.
-
-## 6. Публичная поставка website
-- [x] Website адаптивен, собран без сторонних runtime-зависимостей; переключатель языка, секционная навигация, диалоги, загрузки, community CTA и поддержка имеют согласованные состояния.
+## 1. Публичный EN/RU сайт
+- [x] Поддерживаются английский и русский; по системной локали для RU выбирается русский, прочие локали — английский. Переключатель сохраняется в `localStorage`.
+- [x] Лендинг оформлен по визуальному ориентиру XMCL, с оригинальной айдентикой Pulsar, тёмным градиентом/частицами и CSS-макетом интерфейса; не копирует XMCL, его логотип, бренд или тексты.
+- [x] Hero, адаптивная навигация, feature cards, downloads, автор Znikson, DonationAlerts, Discord community, footer, правила и privacy dialog реализованы.
+- [x] В исходниках сайта указан автор Znikson и прямые публичные ссылки: профиль `https://github.com/zniks0n`, репозиторий `https://github.com/zniks0n/Pulsar-Launcher`, Discord `https://discord.gg/S4Xjmh9wQw`.
+- [x] Точная ссылка поддержки `https://www.donationalerts.com/r/zn1kson` задана одной константой `DONATE_URL`.
+- [x] Добавлена приятная, ненавязчивая motion-система: поэтапное появление секций/cards, мягкие hover/focus/press transitions, nav/menu и dialog transitions; `prefers-reduced-motion` отключает scroll reveal и непрерывные эффекты, всё содержимое остаётся доступным.
 - [x] Добавлены canonical/Open Graph/Twitter metadata, XML sitemap, `robots.txt` и корневой `/manus-routes.json`.
-- [x] Публичная страница успешно открыта браузером: `https://pulsar-bq4wlerh.manus.space`.
-- [x] Последняя опубликованная версия/checkpoint: `48239353845979a2e9e51828d906fd0bde434565`.
+- [x] Обновление сайта с реальными ссылками и релизной информацией ещё надо сохранить как новый Manus checkpoint и повторно опубликовать; опубликованная прежняя версия доступна по адресу `https://pulsar-bq4wlerh.manus.space/`.
 
-## 7. Discord server automation helper
-- [x] Подготовлен `discord/setup-server.mjs`; код создаёт отсутствующие ресурсы существующего Discord guild и не удаляет пользовательские данные.
-- [x] Русские категории: `ИНФОРМАЦИЯ`, `СООБЩЕСТВО`, `ПОДДЕРЖКА`, `ГОЛОСОВЫЕ`, приватные `СОТРУДНИКИ`.
-- [x] Информация/read-only: `объявления`, `правила`, `загрузки`, `поддержать-разработку`; сообщество: `общий-чат`, `обсуждение-лаунчера`, `скриншоты`, `моды-и-миры`, форум `предложения`; поддержка: форумы `помощь`/`баг-репорты`; голосовые: `Общий`, `С-модами`, `АФК`; private: `чат-команды`, `лог-модерации`.
-- [x] Создаются роли `Владелец`, `Разработчик`, `Модератор`, `Игрок`, `Тестировщик`, `Помощник`, `Бустер`, `RU`; роль владельца назначается по локальному `DISCORD_OWNER_ID`, если Discord позволяет.
-- [x] В пустых текстовых каналах создаётся и закрепляется приветственное сообщение; в новых форумах создаются закреплённые шаблонные темы и статус-теги. В #правила указаны автор Znikson, правила и меры модерации; #объявления описывает roadmap, сайт, автора и статус репозитория; #загрузки не фальсифицирует URL, размеры, даты или SHA-256; #поддержать-разработку содержит прямую ссылку DonationAlerts.
-- [x] Helper может создать baseline AutoMod против Discord-detected spam и mass mentions/mention raids, настроить alert в закрытый журнал, повысить verification/content-filter только если слабее целевого уровня, и задать описание сервера только если его ещё нет.
-- [x] Helper может сформировать бот OAuth install URL без токена через `pnpm run discord:invite`; локальная одноразовая настройка — `pnpm run discord:setup`.
-- [ ] Владелец должен создать сервер от аккаунта Znikson, application/bot, локально установить токен/Guild ID/User ID, пригласить бота с описанными правами, запустить helper, при необходимости вручную выдать владельцу роль и проверить результат AutoMod.
-- [ ] Администратор должен вручную включить Discord Community и выполнить Community Onboarding/Safety Setup; bot не меняет функцию `COMMUNITY` и не создаёт сервер.
-- [ ] После настройки заменить `[DISCORD_ZNIKSON]`, community CTA placeholder и статус-счётчик сайта реальными данными.
+## 2. Download release и сайт-сообщество
+- [x] Подготовлены ссылки на Windows x64 installer `.exe` и portable `.zip`; для каждого UI показывает размер, дату и GitHub Release URL, после создания релиза они ведут на соответствующие бинарники.
+- [x] Для installer и ZIP записаны размеры/даты; Windows-бинарники прямо обозначены как неподписанные, а не как доверенный подписанный издателем продукт.
+- [x] Feature cards — краш-репорт/ИИ, Discord Rich Presence, импорт, автообновление и визуализатор прогресса — помечены как roadmap, не как уже включённые возможности.
+- [x] Discord CTA ведут на реальный invite. Счётчик показывает `approximate_member_count` снимком `1` на 2026-10-29; запрос Discord invite API не разрешает browser CORS, поэтому значение помечено датой и не выдаётся за live-counter.
+- [x] Privacy dialog объясняет языковой `localStorage`, датированный счётчик Discord и передачу данных DonationAlerts.
 
-## 8. Desktop launcher — не выполнен
-- [ ] Создать самостоятельное desktop приложение Pulsar Launcher с тёмной/светлой темами, пользовательской палитрой, картинкой/видео/частицами для фона, боковой навигацией «Главная / Инстансы / Моды / Настройки», account header, smooth transitions, hover и rounded controls.
-- [ ] Выпустить `.exe` и self-contained `.zip`; в «Настройки → О программе» и «О лаунчере» указать автора Znikson, версию, website, GitHub/Discord placeholders или действительные адреса.
-- [ ] Аккаунты: Microsoft OAuth, offline nickname, Ely.by, LittleSkin, custom Yggdrasil через authlib-injector с автоподстановкой `-javaagent`, загрузка скинов, optional CustomSkinLoader для offline nick, «Disable Authlib Injector», мультиаккаунт-хаб, автообновление токенов.
-- [ ] Инстансы: изолированные Java/Bedrock профили, группы папок, независимые моды/миры/RAM/Java/JVM args/loader/theme, Quick Action, настраиваемый Focus Mode dashboard.
-- [ ] Загрузчики: Forge, Fabric, Quilt, NeoForge, OptiFine, LabyMod; установка любых версий, Java auto-download, resumable installs, fast downloads и зеркала (BMCLAPI и др.).
-- [ ] Контент: Modrinth, CurseForge, FTB; URL/drag-and-drop imports; импорт Prism, MultiMC, ATLauncher, GDLauncher, CurseForge App, Modrinth App, TLauncher и official launcher; коллекции/избранное; управление модами, включение/выключение/фильтры/зависимости/«Скрыть уже установленные»; группы модов, шейдеры/resource packs, детали мода и AI-suggested pack builder.
-- [ ] Миры/серверы: previews сохранений и chunk tools, неблокирующий 3D blueprint preview, achievements/FTB quest progress visualizer, local server, server/modpack export, server list/catalog/rating.
-- [ ] Социальные функции: friends/DM/chat, in-game voice without plugins, cosmetics and 3D try-on, leaderboards, skin studio.
-- [ ] Производительность/восстановление: FPS boost, Visual Enhancement Hub, Smart Resource Management, options.txt sync, task manager, P2P host migration/reconnect/filename encoding/Glassmorphism dialog, Big Picture/gamepad, Correlated Runtime Telemetry.
-- [ ] Надёжность: updater и DPoP Clock Skew Tolerance; тесты реального запуска Minecraft.
-- [ ] При краше Minecraft автоматически показать «Краш-репорт»: instance/version/loader/time/exit code/error type, highlighted log и копирование/сохранение/open-folder.
-- [ ] Crash UI имеет AI cards ChatGPT, Claude, Gemini, DeepSeek, Perplexity, Copilot, GigaChat, YandexGPT и custom AI; клик открывает AI web app с подготовленным prompt (launcher/MC/loader/mods/crash-report/latest.log/error/вопрос), localized по UI; быстрый offline rules-based диагностика и конкретные действия.
-- [ ] «Краши и диагностика» содержит auto-open, auto-copy prompt, AI toggles, custom link/template placeholders `{log}`, `{mods}`, `{version}`, `{loader}`, `{error}`; приватность: consent warning до отправки внешнему AI и локальный offline analysis.
-- [ ] Rich Presence пока пользователь в launcher/игре показывает выбранный instance, game version, loader, server и play time; управляется из настроек.
+## 3. Рабочее desktop-приложение
+- [x] Создан самостоятельный Electron launcher с безопасным BrowserWindow (`nodeIntegration:false`, context isolation, sandbox) и ограниченным preload/IPC bridge.
+- [x] Адаптивный интерфейс содержит Home, Instances, Mods, Settings, About; RU/EN, тёмную/светлую тему, акцентные цвета и плавные hover/section transitions с reduced-motion support.
+- [x] Реализованы реальные Minecraft Java version metadata, установка необходимых Vanilla client/libraries/assets и установка Fabric; установка отправляет фактический progress и поддерживает отмену.
+- [x] Игра запускается отдельным процессом Minecraft Java; код проверяет минимальную Java major version из версионного metadata, валидность памяти и runtime перед запуском.
+- [x] Временная оффлайн-установка Minecraft 1.21.4 прошла; тестовый запуск в Linux/Xvfb достиг `game:window-ready`, временные тестовые данные удалены. Это не означает тестирование Windows графического режима или Microsoft login.
+- [x] Инстансы имеют отдельные папки/группы; поддержан импорт совместимых локальных Minecraft/Prism-папок, базовая навигация и управление выбранным инстансом.
+- [x] Modrinth search/совместимые версии доступны; файлы загружаются из Modrinth CDN и проверяются по хешу, локальные mods можно включать/выключать.
+- [x] Поддержаны локальные offline-профили и сторонний HTTPS Yggdrasil; пароль не сохраняется, токен сохраняется только через OS-protected storage, если оно доступно; для запуска Yggdrasil предусмотрен `authlib-injector`.
+- [x] Settings включают Java executable, memory, authlib-injector, snapshots, язык/тему/акцент и локальные crash report предпочтения.
+- [x] При закрытии игры UI предлагает локальный crash report: оффлайн-диагностика, копирование/сохранение/просмотр лога и user-confirmed переходы к внешнему AI assistant; лог самовольно не загружается.
+- [x] Unit tests оффлайн crash diagnostics и защищённого async account storage: 8 прошли; Electron JavaScript syntax проверен.
+- [x] Финальная Electron `v0.1.0` пересборка собрала Windows x64 NSIS installer, portable `.exe` и portable `.zip`; проверены PE signatures, SHA-256 и zip integrity. Бинарники unsigned.
+- [ ] Microsoft/Xbox authentication отсутствует: требуется проверенная регистрация публичного OAuth client/app flow. Не запрашивать Microsoft-пароль и не включать фиктивный вход.
+- [ ] Bedrock; Forge/NeoForge/Quilt/OptiFine/LabyMod; automatic Java runtime download; CurseForge/FTB; автоподписанный updater; полный импорт аккаунтов/настроек всех лаунчеров не включены.
+- [ ] Остальные идеи из исходного brief не выполнены: импорт из всех перечисленных launcher-ов; коллекции/избранное, зависимости модов/шейдеры/resource packs и AI pack builder; миры/chunk tools/3D blueprints, achievements/FTB quests, локальный сервер и каталог; друзья/личные сообщения/voice/cosmetics/leaderboards/skin studio; FPS/ресурсный менеджер/options sync/task manager/P2P/Big Picture/correlated telemetry; Discord Rich Presence; игровые updater и DPoP clock tolerance. Не представлять их на сайте как готовые функции.
+- [ ] Discord Rich Presence, Microsoft login и Bedrock не включены в ранний релиз; пользователь поручил мне настроить сам Discord guild.
 
-## 9. GitHub repository/release — не выполнены
-- [ ] Создать публичный repository `Pulsar-Launcher`, описание About с Znikson/site/Discord/DonationAlerts, запушить исходники в требуемую структуру `launcher/`, `website/`, `discord/`, README EN/RU, `LICENSE` (MIT, `Copyright (c) 2026 Znikson`), `CHANGELOG.md`, `.gitignore`, `docs/INSTALL.md`, `docs/BUILD.md`.
-- [ ] Создать GitHub Release с реально собранными `.exe`/`.zip` и ссылками/хэшами.
-- [ ] Создание не выполнено: в этой сессии не было разрешённого GitHub-коннектора; не утверждать, что репозиторий или release существуют.
+## 4. GitHub repository и release
+- [x] После отдельного разрешения пользователя создан публичный GitHub repository `https://github.com/zniks0n/Pulsar-Launcher`.
+- [ ] Запушить в него исходный код с README, лицензией и документацией; добавить About-текст с автором/сайтом/Discord/DonationAlerts.
+- [ ] Создать GitHub Release `v0.1.0`, загрузить installer/portable `.exe`/`.zip` и SHA-256 manifest; проверить assets и заменить ссылки сайта фактическими.
+- [ ] Подписать Windows файлы Authenticode нельзя без сертификата пользователя; не заявлять подпись.
 
-## 10. Передача кода и авторство
-- [x] В корневом README и `package.json` указан Znikson; MIT LICENSE, CHANGELOG, `.gitignore`, BUILD/INSTALL docs сохранены.
-- [x] Передан source ZIP сайта и Discord helper; это не является установщиком или portable-релизом launcher.
-- [x] Токенов, аккаунтных ключей и реального bot `.env` в Git/архив не включено.
+## 5. Настроить существующий Discord guild
+- [x] Подготовлен optional idempotent `discord/setup-server.mjs`, двуязычная инструкция, безопасный `.env.example`; helper настраивает существующий guild, не создаёт сервер и не удаляет пользовательские данные.
+- [x] Helper поддерживает категории/каналы/форумы/роли, pinned seed messages, AutoMod baseline, verification/content filters, правила, ссылки сайта/repository/releases/DonationAlerts и заданный владельцем реальный invite URL.
+- [x] Проверен существующий invite `https://discord.gg/S4Xjmh9wQw`: он ведёт на guild `PL / Pulsar Launcher` с одним участником. Не создавать дубликат и не удалять существующие данные.
+- [ ] Авторизация не завершена: browser tool остался в неавторизованной Sandbox с неожиданным prefilled login, а предоставленная в сообщении форма не приняла. Не нажимать login и не повторять использование пароля; потребуется реальный авторизованный Discord-сеанс или локально запущенный setup helper с принадлежащим владельцу bot token. Рекомендовано сменить пароль, отправленный в чат.
+- [ ] Настроить согласованную структуру категорий/каналов/форумов, роли и права доступа, rules/welcome сообщения, основные safety/AutoMod параметры и использовать уже существующий invite; проверить результат в Discord.
+- [ ] Включить Discord Community/Onboarding, если нужные настройки доступны владельцу; если Discord требует ручного шага или отдельного подтверждения, сообщить пользователю только этот конкретный блокер.
+
+## 6. Источники, архив, checkpoint и публикация
+- [x] Сохранены MIT LICENSE, CHANGELOG, `.gitignore`, research notes, BUILD/INSTALL docs и инструкции desktop.
+- [x] В репозитории и документации нет реального bot token, Microsoft/Yggdrasil пароля или пользовательских ключей.
+- [x] Пересобраны site и desktop после последних изменений; проверены 83 статических i18n key на EN/RU, локальный HTTP (страница/CSS/JS/SVG/route manifest), JavaScript syntax и 8 unit tests.
+- [ ] Сохранить исходники и бинарники в Manus canonical `origin/main` как новую checkpoint-версию; затем запушить тот же проект в публичный GitHub `main` и опубликовать сайт после подтверждения deployment результата.
+- [ ] Обновить source ZIP после финального commit. Source ZIP не является `.exe` или portable launcher.

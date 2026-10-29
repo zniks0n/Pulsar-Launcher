@@ -1,76 +1,74 @@
 # Pulsar Launcher
 
-**Author: Znikson.** A modern home for Minecraft instances, mods and worlds.
+**Автор / Author: Znikson** · ранний доступ / early access `v0.1.0`
 
-**Автор: Znikson.** Современный дом для инстансов, модов и миров Minecraft.
+Pulsar Launcher is an open-source Windows desktop launcher for Minecraft Java Edition, plus a bilingual public website. This is an early release: it installs and launches real Vanilla and Fabric instances, but it is not a finished replacement for every launcher.
 
-> This repository currently contains a bilingual public website and an optional Discord server setup helper. It does **not** contain a finished desktop launcher, installer or portable launcher release. No binaries or Discord invite are claimed until they actually exist.
->
-> Сейчас проект содержит двуязычный публичный сайт и вспомогательный скрипт настройки Discord-сервера. Готового десктопного лаунчера, установщика и портативного релиза здесь **пока нет**. Бинарники и приглашение в Discord не выдаются за уже опубликованные.
+Pulsar Launcher — открытый Windows-лаунчер Minecraft Java Edition и двуязычный сайт. Это ранний релиз: он устанавливает и запускает настоящие Vanilla- и Fabric-сборки, но пока не заменяет все существующие лаунчеры.
 
-## Website / Сайт
+## Downloads / Загрузки
 
-The responsive landing page supports English and Russian, detects browser language, remembers a manual selection in `localStorage`, and presents the product roadmap, release status, community, author and support sections. Download and Discord actions show honest “coming soon” states until real files and an invite are configured; the site does not invent file sizes, dates, invite URLs or member counts.
+- **Windows x64 installer (.exe):** [v0.1.0 release](https://github.com/zniks0n/Pulsar-Launcher/releases/download/v0.1.0/Pulsar-Launcher-0.1.0-x64.exe)
+- **Windows portable (.zip):** [v0.1.0 release](https://github.com/zniks0n/Pulsar-Launcher/releases/download/v0.1.0/Pulsar-Launcher-0.1.0-x64.zip)
+- The portable `.exe`, release notes and `SHA256SUMS.txt` are on the same [GitHub release](https://github.com/zniks0n/Pulsar-Launcher/releases/tag/v0.1.0).
 
-Адаптивный лендинг поддерживает русский и английский, выбирает язык по локали браузера и сохраняет выбор пользователя в `localStorage`. На странице есть план продукта, статусы релизов, блоки сообщества, автора и поддержки. До настройки настоящих файлов и приглашения кнопки показывают честное состояние «скоро»; вымышленных размеров, дат, ссылок и числа участников нет.
+The first Windows binaries are **unsigned**. Windows SmartScreen may show an unknown-publisher warning. Review the release notes and verify the supplied SHA-256 checksums before running the files.
 
-## Run and build / Запуск и сборка
+Первый Windows-релиз **не подписан**. SmartScreen может показать предупреждение о неизвестном издателе. Перед запуском прочитайте описание релиза и проверьте SHA-256.
 
-Requires Node.js 22 or later. The website has no third-party runtime dependencies.
+## What works / Что уже работает
 
-Требуется Node.js 22 или новее. Сайт не использует внешние runtime-зависимости.
+- Isolated Minecraft Java instances with real official version metadata, game libraries and assets; Vanilla and Fabric installation; cancellable progress.
+- Import of compatible local Minecraft/Prism-style folders, with common account/credential files excluded from the import.
+- Modrinth search and compatible Fabric/Vanilla mod download, hash verification and local enable/disable.
+- Offline profiles and third-party Yggdrasil login flows; passwords are not persisted. Online tokens are saved only when the operating system's protected storage is available.
+- Java/version compatibility validation, memory settings, language (EN/RU), themes, accent colors, local crash reports and offline crash diagnostics.
+- Optional AI-assisted crash explanation opens a user-selected external assistant only after a confirmation step; Pulsar does not upload the crash report.
 
-```sh
-pnpm run dev
-pnpm run build
-pnpm run check
-```
+## Not included yet / Пока не реализовано
 
-The dev server runs at `http://localhost:3000`; the static build is placed in `dist/`.
+Microsoft account/Xbox authentication, Bedrock, Forge/NeoForge/Quilt installation, full migrations from every launcher, Discord Rich Presence, built-in auto-updater and quest/progress integrations are not in this v0.1.0 release. These are not presented as working product features. The web page marks roadmap items accordingly.
 
-Сервер разработки доступен на `http://localhost:3000`; статическая сборка создаётся в `dist/`.
-
-## Project structure / Структура проекта
-
-The website source stays at the repository root because this folder is the deployable Webdev site. `scripts/` contains its local server/build steps, `discord/` contains the standalone server setup helper and safe env example, and `docs/` contains build/API notes. There is no `launcher/` directory because a desktop application has not been implemented; the website/helper source is not a launcher release.
-
-Исходники сайта находятся в корне репозитория, потому что именно эта папка публикуется как Webdev-сайт. В `scripts/` лежат локальный сервер и сборка, в `discord/` — отдельный helper настройки сервера и безопасный пример env, в `docs/` — инструкции и API-заметки. Каталога `launcher/` пока нет: desktop-приложение не реализовано, этот исходный код не является его релизом.
-
-## Discord helper / Помощник Discord
-
-`discord/setup-server.mjs` creates missing Russian-language categories, roles, channels, pinned starter posts, read-only information channels, three voice rooms, basic AutoMod anti-spam rules and an invite in an existing server. It uses Node's built-in `fetch`; see [Discord setup instructions](discord/README.md) for safe one-time setup. The script cannot create the Discord server itself; the owner must create it, install the bot and complete Discord Community onboarding.
-
-Файл `discord/setup-server.mjs` создаёт отсутствующие русскоязычные категории, роли, текстовые/форумные/голосовые каналы, закреплённые стартовые посты, информационные каналы только для чтения, три голосовые комнаты, базовые AutoMod-правила против спама и приглашение в уже созданный сервер. Используется встроенный Node `fetch`; безопасный запуск описан в [инструкции Discord](discord/README.md). Сам Discord-сервер создаёт владелец, устанавливает бота и завершает настройку Community Onboarding.
+В v0.1.0 пока нет входа Microsoft/Xbox, Bedrock, установки Forge/NeoForge/Quilt, импорта из всех лаунчеров, Discord Rich Presence, встроенного автообновления и интеграций достижений/квестов. Эти возможности не выдаются за готовые.
 
 ## Project links / Ссылки проекта
 
-- Website / Сайт: [pulsar-bq4wlerh.manus.space](https://pulsar-bq4wlerh.manus.space)
-- GitHub: `[GITHUB_ZNIKSON]` — replace only after a real public repository exists / заменить после появления публичного репозитория
-- Discord: `[DISCORD_ZNIKSON]` — replace only after the server invite is available / заменить после появления приглашения
-- Development support / Поддержка разработки: [DonationAlerts](https://www.donationalerts.com/r/zn1kson)
+- Website / Сайт: [pulsar-bq4wlerh.manus.space](https://pulsar-bq4wlerh.manus.space/)
+- GitHub source and releases / Исходники и релизы: [zniks0n/Pulsar-Launcher](https://github.com/zniks0n/Pulsar-Launcher)
+- Author profile / Профиль автора: [github.com/zniks0n](https://github.com/zniks0n)
+- Discord invitation / Приглашение Discord: [discord.gg/S4Xjmh9wQw](https://discord.gg/S4Xjmh9wQw)
+- Development support / Поддержка: [DonationAlerts](https://www.donationalerts.com/r/zn1kson)
 
-## Publish source to GitHub / Публикация исходников на GitHub
+## Build / Сборка
 
-The public GitHub connector is not enabled in this session, so no repository or release is claimed. The downloadable source ZIP contains the current website and Discord setup helper, **not** the unfinished desktop launcher. After extracting it, you can publish this website/helper source with GitHub CLI:
-
-В сессии нет разрешённого публичного GitHub-подключения, поэтому репозиторий и релиз не выдаются за созданные. ZIP с исходниками содержит текущий сайт и Discord setup helper, **но не** незавершённый desktop launcher. После распаковки опубликовать эти исходники можно через GitHub CLI:
+Requires Node.js 22+ and pnpm. The desktop app is in `launcher/`; the public website source is at the repository root.
 
 ```sh
-gh auth login
-git init -b main
-git add .
-git commit -m "Add Pulsar website and Discord setup helper"
-gh repo create Pulsar-Launcher --public --source=. --remote=origin --push
+# Website
+pnpm install
+pnpm run check
+pnpm run build
+pnpm run dev
+
+# Desktop app
+cd launcher
+pnpm install
+pnpm run check
+pnpm test
+pnpm dev
+pnpm run build:win
 ```
 
-The resulting repository would contain only the site/helper until the launcher is actually implemented. Replace `[GITHUB_ZNIKSON]` with the real URL and set `PULSAR_GITHUB_URL` / `PULSAR_RELEASES_URL` in `discord/.env` only when those destinations exist.
+`pnpm run build:win` creates an NSIS installer, a portable executable and a portable ZIP for Windows x64. An Authenticode signing certificate is not included. See [desktop notes](launcher/README.md), [website build](docs/BUILD.md) and [installation notes](docs/INSTALL.md).
 
-Этот репозиторий будет содержать только сайт/helper, пока сам лаунчер не реализован. Замените `[GITHUB_ZNIKSON]` настоящим адресом и задавайте `PULSAR_GITHUB_URL` / `PULSAR_RELEASES_URL` в `discord/.env` только после появления этих адресов.
+`build:win` создаёт NSIS-установщик, портативный `.exe` и ZIP для Windows x64. Сертификат Authenticode не включён. Инструкции: [desktop-приложение](launcher/README.md), [сборка сайта](docs/BUILD.md), [установка](docs/INSTALL.md).
 
-The website defines the single requested `DONATE_URL` constant in `app.js`; the Discord helper defines the same destination once in `discord/setup-server.mjs`.
+## Discord helper / Настройка Discord
 
-На сайте единственная требуемая константа `DONATE_URL` объявлена в `app.js`; скрипт Discord использует тот же адрес, объявленный ровно один раз в `discord/setup-server.mjs`.
+The optional `discord/setup-server.mjs` configures channels and moderation for an **existing** guild; it does not create a Discord server. Znikson manages the server and invitation. If using the helper, begin with [its safety and setup guide](discord/README.md) and keep the bot token in a local, ignored `.env` file.
 
-## Author / Автор
+Необязательный `discord/setup-server.mjs` настраивает каналы и модерацию в **уже созданном** сервере; он не создаёт сам сервер. Сервером и приглашением управляет Znikson. Для helper сначала прочитайте [инструкцию и меры безопасности](discord/README.md); храните токен бота только в локальном игнорируемом `.env`.
 
-**Znikson**
+## License / Лицензия
+
+MIT. Pulsar is an independent community project and is not affiliated with Mojang Studios or Microsoft.

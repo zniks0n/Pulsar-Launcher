@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: https://cdn.modrinth.com; connect-src 'self'; font-src 'self'; frame-src 'none';">
+  <title>Pulsar Launcher</title>
+  <link rel="icon" href="../assets/pulsar-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="side-rail" aria-label="Primary navigation">
+      <a class="brand" href="#home" aria-label="Pulsar Launcher home" data-route="home">
+        <img src="../assets/pulsar-mark.svg" width="38" height="38" alt="">
+        <span><strong>PULSAR</strong><small>LAUNCHER</small></span>
+      </a>
+      <div class="rail-label" data-i18n="navSpace">YOUR SPACE</div>
+      <nav class="main-nav">
+        <button class="nav-link is-active" data-route="home"><span class="nav-icon">✦</span><span data-i18n="navHome">Home</span><span class="nav-active-mark"></span></button>
+        <button class="nav-link" data-route="instances"><span class="nav-icon">▣</span><span data-i18n="navInstances">Instances</span><span class="nav-active-mark"></span></button>
+        <button class="nav-link" data-route="mods"><span class="nav-icon">⌘</span><span data-i18n="navMods">Mods</span><span class="nav-active-mark"></span></button>
+      </nav>
+      <div class="rail-label rail-label-lower" data-i18n="navManage">MANAGE</div>
+      <nav class="main-nav">
+        <button class="nav-link" data-route="settings"><span class="nav-icon">⚙</span><span data-i18n="navSettings">Settings</span><span class="nav-active-mark"></span></button>
+        <button class="nav-link" data-route="about"><span class="nav-icon">ⓘ</span><span data-i18n="navAbout">About Pulsar</span><span class="nav-active-mark"></span></button>
+      </nav>
+      <div class="rail-spacer"></div>
+      <div class="rail-status"><span class="status-dot"></span><span data-i18n="localReady">Local profile ready</span></div>
+      <button class="donate-link" data-action="donate"><span>✧</span><span data-i18n="supportDev">Support the developer</span><span class="external-mark">↗</span></button>
+      <div class="rail-footnote"><span>PULSAR</span><span data-i18n="buildLabel">EARLY ACCESS · 0.1.0</span></div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="crumb"><span class="crumb-mark">/</span><span id="breadcrumb-title">Home</span></div>
+        <div class="topbar-actions">
+          <button class="button button-outline button-small" id="last-crash-report" type="button" data-i18n="lastCrash" hidden>Last crash report</button>
+          <span class="online-pill"><i></i><span data-i18n="localMode">LOCAL MODE</span></span>
+          <button class="account-trigger" id="account-trigger" type="button" aria-label="Manage accounts">
+            <span class="avatar" id="account-avatar">P</span><span class="account-summary"><strong id="account-name">PulsarPlayer</strong><small id="account-type">Offline profile</small></span><span class="chevron">⌄</span>
+          </button>
+          <button class="icon-button" id="add-account" type="button" aria-label="Add account" title="Add account">＋</button>
+        </div>
+      </header>
+
+      <div class="event-strip" id="event-strip" role="status" aria-live="polite" hidden></div>
+      <section class="progress-panel" id="install-panel" hidden aria-live="polite">
+        <div class="progress-copy"><span class="progress-orbit"></span><div><strong id="install-title">Preparing your world</strong><small id="install-detail">Connecting to official Minecraft services</small></div><b id="install-percent">0%</b></div>
+        <div class="progress-track"><span id="install-bar"></span></div>
+        <button class="text-button" id="cancel-install" type="button" data-i18n="cancel">Cancel</button>
+      </section>
+
+      <section class="page is-active" id="page-home" data-page="home">
+        <div class="home-hero">
+          <div class="hero-copy">
+            <span class="eyebrow"><i class="eyebrow-star">✦</i><span data-i18n="heroEyebrow">YOUR NEXT WORLD STARTS HERE</span></span>
+            <h1><span data-i18n="heroTitleA">Make room</span><br><span class="gradient-text" data-i18n="heroTitleB">for wonder.</span></h1>
+            <p data-i18n="heroCopy">A quiet, thoughtful home for your Minecraft worlds. Set up an instance, make it yours, and press play when you’re ready.</p>
+            <div class="hero-actions"><button class="button button-primary" id="hero-launch" type="button"><span class="play-symbol">▶</span><span data-i18n="playSelected">Play selected world</span></button><button class="button button-quiet" data-route="instances" type="button"><span>＋</span><span data-i18n="createWorld">Create an instance</span></button></div>
+            <div class="hero-meta"><span><i class="tiny-star">✦</i><span data-i18n="openSource">Open-source project</span></span><span class="meta-separator">·</span><span data-i18n="madeBy">Made by Znikson</span></div>
+          </div>
+          <div class="hero-scene" aria-hidden="true">
+            <div class="scene-halo"></div><div class="scene-orbit scene-orbit-one"></div><div class="scene-orbit scene-orbit-two"></div><div class="scene-orbit scene-orbit-three"></div>
+            <div class="scene-star scene-star-one">✦</div><div class="scene-star scene-star-two">·</div><div class="scene-star scene-star-three">✧</div>
+            <div class="world-card-float"><div class="world-card-top"><span class="world-thumb">✦</span><span class="world-card-lines"><b></b><i></i></span><span class="world-card-online"><i></i></span></div><div class="world-landscape"><div class="mountain mountain-back"></div><div class="mountain mountain-front"></div><div class="world-sun"></div><div class="world-water"></div><div class="world-cube"></div></div><div class="world-card-foot"><span>MINECRAFT</span><b>READY TO LAUNCH</b></div></div>
+            <div class="float-chip chip-left"><span>⤓</span><b>MODRINTH</b><i>CONNECTED</i></div><div class="float-chip chip-right"><span>◌</span><b>JAVA</b><i>LOCAL RUNTIME</i></div>
+            <div class="scene-footnote"><span>01</span><i></i><span>THE WORLD IS YOURS</span></div>
+          </div>
+          <div class="hero-bottom"><span><i></i><span data-i18n="firstRunNotice">First time here? Create an instance to begin.</span></span><span>01 / 04</span></div>
+        </div>
+
+        <div class="quick-stats">
+          <div class="stat-item"><span class="stat-icon">▣</span><span><b id="stat-instances">0</b><small data-i18n="statInstances">INSTANCES</small></span></div>
+          <div class="stat-rule"></div>
+          <div class="stat-item"><span class="stat-icon stat-icon-mint">●</span><span><b id="stat-profile">Offline</b><small data-i18n="statProfile">ACTIVE PROFILE</small></span></div>
+          <div class="stat-rule"></div>
+          <div class="stat-item"><span class="stat-icon stat-icon-gold">◇</span><span><b id="stat-java">Java</b><small data-i18n="statRuntime">RUNTIME</small></span></div>
+          <button class="stat-settings" data-route="settings" type="button" aria-label="Open settings">↗</button>
+        </div>
+
+        <section class="home-section">
+          <div class="section-heading"><div><span class="section-index">A / YOUR LIBRARY</span><h2 data-i18n="recentWorlds">Your worlds</h2></div><button class="text-button" data-route="instances" type="button"><span data-i18n="viewAll">View all</span> <i>↗</i></button></div>
+          <div class="instance-grid" id="home-instances"></div>
+          <div class="empty-state" id="home-empty"><div class="empty-orbit"><span>✦</span></div><h3 data-i18n="emptyTitle">A new world is one click away.</h3><p data-i18n="emptyCopy">Create a separate instance so mods, settings and saves stay neatly in one place.</p><button class="button button-outline" data-route="instances" type="button"><span>＋</span><span data-i18n="createFirst">Create your first instance</span></button></div>
+        </section>
+
+        <section class="feature-note"><div class="feature-note-mark">✧</div><div><span class="section-index" data-i18n="noteLabel">A SMALL NOTE</span><h3 data-i18n="offlineTitle">Simple, honest, and yours.</h3><p data-i18n="offlineCopy">Offline profiles work in offline-mode servers only. A Microsoft account integration is not included in this early build.</p></div><button class="text-button" data-route="about" type="button"><span data-i18n="learnMore">Learn more</span><i>↗</i></button></section>
+      </section>
+
+      <section class="page" id="page-instances" data-page="instances" hidden>
+        <div class="page-heading"><div><span class="section-index">B / PERSONAL LIBRARY</span><h1 data-i18n="instancesTitle">Your instances</h1><p data-i18n="instancesSubtitle">Independent game folders for different versions and play styles.</p></div><div class="heading-actions"><button class="button button-quiet" id="import-instance" type="button"><span>↥</span><span data-i18n="importInstance">Import a folder</span></button><button class="button button-primary" id="new-instance" type="button"><span>＋</span><span data-i18n="newInstance">New instance</span></button></div></div>
+        <div class="filter-row"><span class="filter-caption" data-i18n="allWorlds">ALL WORLDS</span><span class="filter-count" id="instance-count">0</span><span class="filter-spacer"></span><span class="filter-hint"><i></i><span data-i18n="isolatedFolders">Each instance has its own folder</span></span></div>
+        <div class="instance-list" id="instances-list"></div>
+        <div class="empty-state empty-state-large" id="instances-empty"><div class="empty-orbit"><span>✦</span></div><h3 data-i18n="noInstances">Your library is waiting.</h3><p data-i18n="noInstancesCopy">Create a Vanilla or Fabric instance, or import a compatible Minecraft folder.</p><div class="empty-actions"><button class="button button-primary" id="empty-new-instance" type="button"><span>＋</span><span data-i18n="newInstance">New instance</span></button><button class="button button-outline" id="empty-import-instance" type="button"><span>↥</span><span data-i18n="importInstance">Import a folder</span></button></div></div>
+      </section>
+
+      <section class="page" id="page-mods" data-page="mods" hidden>
+        <div class="page-heading"><div><span class="section-index">C / DISCOVER & CURATE</span><h1 data-i18n="modsTitle">A world of mods.</h1><p data-i18n="modsSubtitle">Discover compatible projects from Modrinth and manage your local mod files.</p></div></div>
+        <div class="mod-toolbar"><label class="select-wrap"><span data-i18n="targetInstance">TARGET INSTANCE</span><select id="mods-instance"></select></label><form id="mod-search-form" class="search-box"><span>⌕</span><input id="mod-search-input" type="search" maxlength="100" autocomplete="off" placeholder="Search Modrinth" aria-label="Search Modrinth"><button type="submit" data-i18n="search">Search</button></form></div>
+        <div class="mods-alert" id="mods-alert"><span>✧</span><p data-i18n="modsCompatibility">Install is enabled only for the exact Minecraft version and loader selected for this instance. Downloads are verified against Modrinth hashes.</p></div>
+        <section class="mod-results-section"><div class="section-heading compact-heading"><div><span class="section-index">DISCOVER / MODRINTH</span><h2 data-i18n="results">Results</h2></div><span class="result-count" id="mod-result-count"></span></div><div class="mod-grid" id="mod-results"></div><div class="empty-state small-empty" id="mods-empty"><div class="empty-orbit"><span>⌘</span></div><h3 data-i18n="searchToStart">Search for something new.</h3><p data-i18n="searchToStartCopy">Find mods, then install a release compatible with the selected instance.</p></div></section>
+        <section class="installed-section"><div class="section-heading compact-heading"><div><span class="section-index">LOCAL / INSTANCE MODS</span><h2 data-i18n="installedMods">Installed mods</h2></div><span class="result-count" id="installed-count">0</span></div><div id="installed-mods" class="installed-list"></div><p class="empty-copy" id="installed-empty" data-i18n="noInstalledMods">No mod files yet for this instance.</p></section>
+      </section>
+
+      <section class="page" id="page-settings" data-page="settings" hidden>
+        <div class="page-heading"><div><span class="section-index">D / YOUR PREFERENCES</span><h1 data-i18n="settingsTitle">Make it feel like yours.</h1><p data-i18n="settingsSubtitle">The launcher remembers your choices on this computer.</p></div></div>
+        <form id="settings-form" class="settings-layout">
+          <section class="settings-card"><div class="settings-card-head"><span class="settings-icon">◉</span><div><h2 data-i18n="appearance">Appearance</h2><p data-i18n="appearanceCopy">Set the mood for your next session.</p></div></div>
+            <label class="setting-field"><span data-i18n="language">Language</span><select id="setting-language"><option value="auto" data-i18n="systemDefault">System default</option><option value="en">English</option><option value="ru">Русский</option></select></label>
+            <label class="setting-field"><span data-i18n="theme">Theme</span><select id="setting-theme"><option value="dark" data-i18n="dark">Dark</option><option value="light" data-i18n="light">Light</option></select></label>
+            <label class="setting-field"><span data-i18n="accentColor">Accent color</span><select id="setting-palette"><option value="violet" data-i18n="violet">Pulsar violet</option><option value="mint" data-i18n="mint">Aurora mint</option><option value="ember" data-i18n="ember">Solar ember</option><option value="blue" data-i18n="blue">Deep blue</option></select></label>
+          </section>
+          <section class="settings-card"><div class="settings-card-head"><span class="settings-icon settings-icon-mint">⌁</span><div><h2 data-i18n="runtimeSettings">Game runtime</h2><p data-i18n="runtimeSettingsCopy">Choose a local Java installation and memory budget.</p></div></div>
+            <label class="setting-field"><span data-i18n="javaExecutable">Java executable</span><span class="path-input"><input id="setting-java-path" type="text" placeholder="java (from PATH)" autocomplete="off"><button id="pick-java" type="button" class="button button-outline button-small" data-i18n="browse">Browse</button></span></label>
+            <div class="setting-field"><span data-i18n="minMemory">Minimum memory (MB)</span><input id="setting-min-memory" type="number" min="512" max="32768" step="512"></div>
+            <div class="setting-field"><span data-i18n="maxMemory">Maximum memory (MB)</span><input id="setting-max-memory" type="number" min="512" max="32768" step="512"></div>
+            <label class="setting-field"><span data-i18n="authlibInjector">authlib-injector JAR (Yggdrasil only)</span><span class="path-input"><input id="setting-injector-path" type="text" placeholder="Not selected" autocomplete="off"><button id="pick-injector" type="button" class="button button-outline button-small" data-i18n="browse">Browse</button></span></label>
+            <label class="check-field"><input id="setting-snapshots" type="checkbox"><span class="check-custom"></span><span><b data-i18n="showSnapshots">Show snapshots</b><small data-i18n="showSnapshotsCopy">Include experimental Minecraft versions in the picker.</small></span></label>
+          </section>
+          <section class="settings-card account-security-card"><div class="settings-card-head"><span class="settings-icon settings-icon-gold">◇</span><div><h2 data-i18n="privacy">Privacy & accounts</h2><p data-i18n="privacyCopy">Account tokens are protected by your operating system when available.</p></div></div>
+            <div class="privacy-status"><span class="status-dot"></span><span id="safe-storage-status">Checking secure storage…</span></div>
+            <button class="button button-outline" id="settings-account-button" type="button"><span>＋</span><span data-i18n="manageAccounts">Manage accounts</span></button>
+            <p class="setting-help" data-i18n="accountWarning">Pulsar never asks for a Microsoft password. Microsoft sign-in is not yet included in this early build. Offline profiles do not authenticate to online-mode servers.</p>
+            <label class="check-field"><input id="setting-auto-open-crash" type="checkbox"><span class="check-custom"></span><span><b data-i18n="autoOpenCrash">Open crash report automatically</b><small data-i18n="autoOpenCrashCopy">Keep the latest local report available in the top bar when this is off.</small></span></label>
+            <label class="check-field"><input id="setting-auto-copy-crash" type="checkbox"><span class="check-custom"></span><span><b data-i18n="autoCopyCrash">Automatically copy an AI prompt</b><small data-i18n="autoCopyCrashCopy">Opt-in only; copies redacted text to the local clipboard and never uploads it.</small></span></label>
+            <label class="setting-field"><span data-i18n="customAiTemplate">Custom AI HTTPS URL template</span><textarea id="setting-custom-ai-template" rows="3" autocomplete="off" placeholder="https://ai.example.com/?q={prompt}"></textarea></label>
+            <p class="setting-help" data-i18n="customAiTemplateCopy">Optional. HTTPS only. Supports {prompt}, {log}, {mods}, {version}, {loader}, and {error}. Opening a custom URL may transmit its query to that service.</p>
+          </section>
+          <div class="settings-save-row"><span id="settings-saved" role="status" aria-live="polite"></span><button class="button button-primary" type="submit" data-i18n="saveSettings">Save preferences</button></div>
+        </form>
+      </section>
+
+      <section class="page" id="page-about" data-page="about" hidden>
+        <div class="page-heading"><div><span class="section-index">E / THE PEOPLE BEHIND IT</span><h1 data-i18n="aboutTitle">Built for the worlds we love.</h1><p data-i18n="aboutSubtitle">An independent launcher project by Znikson.</p></div></div>
+        <div class="about-layout"><article class="about-card about-card-main"><div class="about-orb">✦</div><span class="section-index" data-i18n="project">THE PROJECT</span><h2>Pulsar Launcher</h2><p data-i18n="aboutCopy">Pulsar is an early-stage, open-source launcher project. The current desktop preview focuses on real Java installs, isolated instances and safe local settings. Some planned integrations are not implemented yet.</p><div class="about-badges"><span>JAVA</span><span>VANILLA</span><span>FABRIC</span><span>MODRINTH</span></div><button class="button button-primary" data-action="donate" type="button"><span>✧</span><span data-i18n="supportDev">Support the developer</span></button></article>
+          <article class="about-card author-card"><span class="section-index" data-i18n="theAuthor">THE AUTHOR</span><div class="author-avatar">Z</div><h2>Znikson</h2><p data-i18n="authorCopy">One creator, one launcher, and a whole lot of worlds to explore.</p><button class="button button-outline" data-action="author-github" type="button"><span>↗</span><span data-i18n="githubPlaceholder">Open GitHub profile</span></button><button class="button button-outline" data-action="project-repo" type="button"><span>↗</span><span data-i18n="projectRepository">Source &amp; releases</span></button><button class="button button-outline" data-action="project-discord" type="button"><span>↗</span><span data-i18n="discordCommunity">Join Discord</span></button><p class="setting-help" data-i18n="githubStatus">Source and v0.1.0 releases are available on GitHub.</p></article>
+          <article class="about-card about-status-card"><span class="section-index" data-i18n="currentStage">CURRENT STAGE</span><div class="stage-line"><i></i><b data-i18n="earlyAccess">Early access · 0.1.0</b></div><p data-i18n="stageCopy">The Windows package is unsigned. Windows may display an unknown-publisher warning. Review the source before running.</p><div class="stage-links"><button class="text-button" data-action="website" type="button"><span data-i18n="projectWebsite">Project website</span><i>↗</i></button><button class="text-button" data-action="donate" type="button"><span data-i18n="donate">DonationAlerts</span><i>↗</i></button></div></article></div>
+        <div class="about-foot"><span>© 2026 Znikson</span><span data-i18n="notAffiliated">Not affiliated with Mojang Studios or Microsoft.</span><span>PULSAR LAUNCHER 0.1.0</span></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="modal" id="instance-dialog">
+    <form class="modal-card" id="instance-form" method="dialog">
+      <div class="modal-head"><div><span class="section-index">CREATE / INSTANCE</span><h2 data-i18n="newInstanceTitle">Give your world a home.</h2></div><button class="icon-button close-modal" type="button" aria-label="Close">×</button></div>
+      <label class="setting-field"><span data-i18n="instanceName">Instance name</span><input id="instance-name" required maxlength="48" placeholder="e.g. Cozy Survival"></label>
+      <div class="form-row"><label class="setting-field"><span data-i18n="minecraftVersion">Minecraft version</span><select id="instance-version" required></select></label><label class="setting-field"><span data-i18n="loader">Loader</span><select id="instance-loader"><option value="vanilla">Vanilla</option><option value="fabric">Fabric</option></select></label></div>
+      <label class="setting-field"><span data-i18n="group">Group</span><input id="instance-group" maxlength="32" value="My worlds" placeholder="My worlds"></label>
+      <p class="setting-help" data-i18n="instanceInstallNote">After creation, Pulsar downloads game files and then offers Play. A local Java runtime is required to launch.</p>
+      <div class="modal-actions"><button class="button button-quiet close-modal" type="button" data-i18n="cancel">Cancel</button><button class="button button-primary" type="submit" data-i18n="createInstance">Create instance</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="account-dialog">
+    <div class="modal-card">
+      <div class="modal-head"><div><span class="section-index">ACCOUNT / PROFILE</span><h2 data-i18n="accountTitle">Choose how you play.</h2></div><button class="icon-button close-modal" type="button" aria-label="Close">×</button></div>
+      <div id="account-list" class="account-list"></div>
+      <div class="account-tabs"><button class="account-tab is-active" data-account-tab="offline" type="button" data-i18n="offlineProfile">Offline profile</button><button class="account-tab" data-account-tab="yggdrasil" type="button" data-i18n="yggProfile">Yggdrasil account</button></div>
+      <form id="offline-form" class="account-form"><label class="setting-field"><span data-i18n="playerName">Player name</span><input id="offline-name" maxlength="16" minlength="3" pattern="[A-Za-z0-9_]{3,16}" required placeholder="PulsarPlayer"></label><p class="setting-help" data-i18n="offlineExplainer">A local identity only. Online-mode servers require an authenticated account.</p><button class="button button-primary" type="submit" data-i18n="addOffline">Add offline profile</button></form>
+      <form id="ygg-form" class="account-form" hidden><label class="setting-field"><span data-i18n="provider">Provider</span><select id="ygg-provider"><option value="elyby">Ely.by</option><option value="littleskin">LittleSkin</option><option value="custom">Custom Yggdrasil</option></select></label><label class="setting-field custom-provider-field" hidden><span data-i18n="apiUrl">Yggdrasil API base URL</span><input id="ygg-base-url" type="url" placeholder="https://auth.example.com/api/yggdrasil"></label><label class="setting-field"><span data-i18n="accountName">Account name / email</span><input id="ygg-username" autocomplete="username" required></label><label class="setting-field"><span data-i18n="password">Password</span><input id="ygg-password" type="password" autocomplete="current-password" required></label><p class="setting-help" data-i18n="yggWarning">Only use a provider you trust. Pulsar sends credentials to its HTTPS API and does not save your password. Yggdrasil requires authlib-injector in Settings to join the matching servers.</p><button class="button button-primary" type="submit" data-i18n="signIn">Sign in securely</button></form>
+      <div class="account-message" id="account-message" role="status" aria-live="polite"></div>
+      <div class="microsoft-note"><span>✧</span><p data-i18n="microsoftNotReady">Microsoft account sign-in is not included yet. Pulsar will never ask you to type a Microsoft password here.</p></div>
+    </div>
+  </dialog>
+
+  <dialog class="modal crash-modal" id="crash-dialog">
+    <div class="modal-card">
+      <div class="modal-head"><div><span class="section-index">GAME / EXIT REPORT</span><h2 data-i18n="crashTitle">The game closed unexpectedly.</h2></div><button class="icon-button close-modal" type="button" aria-label="Close">×</button></div>
+      <p data-i18n="crashCopy">This report is from the local Minecraft process. It is not uploaded anywhere.</p>
+      <p class="crash-summary" id="crash-summary"></p>
+      <section class="diagnostic-card" aria-live="polite"><span class="section-index" data-i18n="localDiagnosis">LOCAL QUICK DIAGNOSIS</span><h3 id="crash-diagnosis-title"></h3><p id="crash-diagnosis-detail"></p><small id="crash-diagnosis-evidence"></small></section>
+      <div class="crash-toolbar"><button class="button button-outline" id="copy-crash-report" type="button" data-i18n="copyCrashLog">Copy report</button><button class="button button-outline" id="save-crash-report" type="button" data-i18n="saveCrashLog">Save report…</button><button class="button button-outline" id="open-crash-folder" type="button" data-i18n="openCrashFolder">Open instance folder</button></div>
+      <section class="assistant-section"><div><span class="section-index" data-i18n="aiAssistants">OPTIONAL EXTERNAL ASSISTANTS</span><p data-i18n="aiPrivacyWarning">Nothing is uploaded by Pulsar. Before opening an assistant, Pulsar asks and copies a redacted prompt to your clipboard; you choose whether to paste or send it.</p></div><div class="ai-grid">
+        <button class="button button-outline" data-crash-ai="chatgpt" type="button">ChatGPT</button><button class="button button-outline" data-crash-ai="claude" type="button">Claude</button><button class="button button-outline" data-crash-ai="gemini" type="button">Gemini</button><button class="button button-outline" data-crash-ai="deepseek" type="button">DeepSeek</button><button class="button button-outline" data-crash-ai="perplexity" type="button">Perplexity</button><button class="button button-outline" data-crash-ai="copilot" type="button">Copilot</button><button class="button button-outline" data-crash-ai="giga" type="button">GigaChat</button><button class="button button-outline" data-crash-ai="yandex" type="button">YandexGPT</button><button class="button button-outline" id="open-custom-ai" type="button" data-i18n="customAI" hidden>Custom AI</button>
+      </div></section>
+      <details class="crash-details"><summary data-i18n="showFullReport">Show full local report</summary><pre id="crash-report" class="crash-report"></pre></details>
+      <div class="modal-actions"><button class="button button-primary close-modal" type="button" data-i18n="close">Close</button></div>
+    </div>
+  </dialog>
+
+  <div class="toast-region" id="toast-region" role="status" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
