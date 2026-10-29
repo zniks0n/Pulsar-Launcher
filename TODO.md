@@ -37,9 +37,10 @@
 
 ## 4. GitHub repository и release
 - [x] После отдельного разрешения пользователя создан публичный GitHub repository `https://github.com/zniks0n/Pulsar-Launcher`.
-- [ ] Запушить в него исходный код с README, лицензией и документацией; добавить About-текст с автором/сайтом/Discord/DonationAlerts.
-- [ ] Создать GitHub Release `v0.1.0`, загрузить installer/portable `.exe`/`.zip` и SHA-256 manifest; проверить assets и заменить ссылки сайта фактическими.
-- [ ] Подписать Windows файлы Authenticode нельзя без сертификата пользователя; не заявлять подпись.
+- [x] Исходники, README, MIT license и документация отправлены в public `main` (source commit `a8ed6f7`); GitHub About указывает сайт, автора Znikson и Minecraft launcher description/topic metadata. В README размещены Discord и DonationAlerts links.
+- [x] Опубликован GitHub Release `v0.1.0`: Windows x64 installer, portable `.exe`, portable `.zip`, `SHA256SUMS.txt` и ZIP исходников; checksum values пересверены с output GitHub release.
+- [x] Ссылки сайта указывают на соответствующие real GitHub release assets.
+- [x] Windows-файлы unsigned; это явно указано в release notes, README и installation docs; Authenticode certificate не предоставлен.
 
 ## 5. Настроить существующий Discord guild
 - [x] Подготовлен optional idempotent `discord/setup-server.mjs`, двуязычная инструкция, безопасный `.env.example`; helper настраивает существующий guild, не создаёт сервер и не удаляет пользовательские данные.
@@ -53,5 +54,5 @@
 - [x] Сохранены MIT LICENSE, CHANGELOG, `.gitignore`, research notes, BUILD/INSTALL docs и инструкции desktop.
 - [x] В репозитории и документации нет реального bot token, Microsoft/Yggdrasil пароля или пользовательских ключей.
 - [x] Пересобраны site и desktop после последних изменений; проверены 83 статических i18n key на EN/RU, локальный HTTP (страница/CSS/JS/SVG/route manifest), JavaScript syntax и 8 unit tests.
-- [ ] Сохранить исходники и бинарники в Manus canonical `origin/main` как новую checkpoint-версию; затем запушить тот же проект в публичный GitHub `main` и опубликовать сайт после подтверждения deployment результата.
-- [ ] Обновить source ZIP после финального commit. Source ZIP не является `.exe` или portable launcher.
+- [ ] Сохранить итоговую TODO/status редакцию в Manus canonical `origin/main` как новую checkpoint-версию и подтвердить automatic deployment сайта.
+- [x] Чистый source ZIP собран из коммита проекта без `.git`, `node_modules`, сборочных бинарников и `.env`; Source ZIP не является `.exe` или portable launcher.
